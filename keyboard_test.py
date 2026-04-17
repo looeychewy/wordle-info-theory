@@ -16,7 +16,8 @@ from tkinter import *
 root = tk.Tk()
 root.title("Wordle Keyboard")
 root.configure(background="Dark grey")
-root.geometry("1260x500+150+200") # +[VALUE] sets on-screen pos.
+root.geometry("1260x500+150+200") # +[VALUE] sets on-screen pos., x & y respectively
+root.resizable(False, False)
 
 # Sets main title for the application window
 main_title = Label(root, width=39, bg='Dark Grey', font=('arial', 40, 'bold'), text='\tWordle Keyboard\t', padx=12)
@@ -24,7 +25,7 @@ main_title.grid(row=0, column=0)
 
 # Container to hold + organize all keyboard buttons
 main_frame = Frame(root, bg ='Dark Grey', bd = 10, width = 1250, height = 490, relief="flat")
-main_frame.grid(row = 1, column = 0, padx = 100, pady = 30)
+main_frame.grid(row = 2, column = 0, padx = 100, pady = 30)
 
 # Contains labels for all buttons, draws directly from str element here to feed into the display (text = key)
 keys = [ ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
@@ -43,7 +44,7 @@ display = tk.Entry(root, textvariable = display_text, font=('arial', 28), bd = 5
 display.focus_set() # Able to type into Entry widget without first clicking on it
 
 display_text.trace('w', uppercase_conversion)
-display.grid(row = 0, column = 0, columnspan = len(keys[0]), pady = 10)
+display.grid(row = 1, column = 0, columnspan = len(keys[0]), pady = 10)
 
 for i, key_row in enumerate(keys):
     for j, key in enumerate(key_row):
