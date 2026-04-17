@@ -1,5 +1,5 @@
 """
-Super basic keyboard GUI app with tkinter -> utilize for Wordle keyboard hopefully
+Super basic keyboard GUI app with tkinter -> utilize for actual Wordle keyboard hopefully
 Enter/Del functionality needs to be implemented (shows up as words currently)
     - Del functionality done 4/15
     - Enter WIP
@@ -60,11 +60,9 @@ def button_click(key):
         display.delete(0, tk.END)
         display.insert(0, str(current) + str(key))
 
-        # Limit entered text in Entry widget to 5 characters
+        # Basic character entry limit (irl keyboard input not limited yet)
         if len(display.get()) > 5:
             display.delete(5, END)
-
-
 
 
 root.mainloop()
