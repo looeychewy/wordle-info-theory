@@ -53,17 +53,13 @@ for i, key_row in enumerate(keys):
 # Main button click functionality
 def button_click(kb_key):
     if kb_key == 'DEL':
-        print("del active")
         display.delete(len(display.get()) - 1, 'end')
     elif kb_key == 'ENTER':
         display.delete(0, tk.END)
-        display.insert(0, str("String passed"))
-        pass
-        # return entry into wordle
+        display.insert(0, str("String passed")) # placeholder for finalized enter functionality
     elif kb_key == 'CLEAR':
         display.delete(0, tk.END)
     else:
-        print("normal active")
         current = display.get()
         display.delete(0, tk.END)
         display.insert(0, str(current) + str(kb_key))
