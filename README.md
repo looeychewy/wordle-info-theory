@@ -1,5 +1,5 @@
 # Building Wordle to kill it with Info Theory
-
+ 
 ## Mechanics:
 - 6 chances to guess a 5 letter word
 - Preset **answer pool** dervived from larger valid English **guess pool**
