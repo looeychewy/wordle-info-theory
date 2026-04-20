@@ -9,6 +9,8 @@ Basic word guessing game with some core Wordle logic:
         - if guess is answer -> print answer, end game
         - if all chances used -> end game, print correct answer
 
+1.01
+Began working on implementing letter validity mechanics
 """
 import random
 
@@ -20,11 +22,28 @@ guess_pool = [
     "drawn", "drink", "faker", "field", "fiend", "flame", "flake", "flare", "fling", "franc", "frank", "frame", "frown",
     "glare", "grail", "grain", "greed", "laser", "later", "learn", "least", "maker", "maser", "plank"
 ]
-
 # answer_pool = []
 
+# TODO: Color denotation mechanics, answer pool from guess pool?
+
+# Color denotation:
+    # Check which letters are:
+        # in answer, right place
+        # in answer, wrong place
+        # not in answer
+    # Add color highlights to terminal after
+
+# Check if letters in player_guess are in the same index in word_answer
+    # "python character comparison"
+    # Nest into function?
+        # compare_char = [word_answer, player_guess]
+        # zip(*compare_char)
+        # ---- Alternatively ----
+        # compare_char(player_guess, word_answer)
+    # would take returned function value and use to denote letter validity
+
 word_answer = random.choice(guess_pool)
-print(word_answer)
+print(word_answer) # use for testing
 
 chance_counter = 0
 while chance_counter < 6:
