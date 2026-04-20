@@ -2,7 +2,7 @@
  
 ## Mechanics:
 - 6 chances to guess a 5 letter word
-- Preset **answer pool** dervived from larger valid English **guess pool**
+- Preset **answer pool** derived from larger valid English **guess pool**
     - If guess not recognized, reject entry and prompt player to try again w/o losing aa turn
 - Hot/cold mechanic (colors to denote letter validity):
   - Green: Letter in answer, in right place
