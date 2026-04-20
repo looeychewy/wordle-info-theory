@@ -22,7 +22,7 @@ guess_pool = [
 ]
 
 # answer_pool = []
-# ##
+
 word_answer = random.choice(guess_pool)
 print(word_answer)
 
