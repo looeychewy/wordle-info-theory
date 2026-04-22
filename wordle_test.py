@@ -13,7 +13,7 @@ Basic word guessing game with some core Wordle logic:
 Began working on implementing letter validity mechanics
 
 1.02
-Continuing work on implementing letter valididty mechanics
+Implemented letter match/mismatch mechanics
 """
 import random
 
@@ -46,7 +46,7 @@ guess_pool = [
 "abide", "bland", "blank", "bleed", "blend", "blimp", "blink", "brain", "brawn", "breed", "brink", "bring", "brown",
     "chunk", "clamp", "cling", "cluck", "clump", "clunk", "crack", "cramp", "crane", "crate", "creed", "crimp", "drain",
     "drawn", "drink", "faker", "field", "fiend", "flame", "flake", "flare", "fling", "franc", "frank", "frame", "frown",
-    "glare", "grail", "grain", "greed", "laser", "later", "learn", "least", "maker", "maser", "plank"
+    "glare", "grail", "grain", "greed", "green", "laser", "later", "learn", "least", "maker", "maser", "plank"
 ]
 # answer_pool = []
 
@@ -91,10 +91,10 @@ while chance_counter < 6:
     if player_guess != word_answer and player_guess in guess_pool:
         chance_counter += 1
     elif player_guess == word_answer:
-        print(f"Correct! Word is {word_answer}!")
+        print(f"Correct! Word is {word_answer.upper()}!")
         break
 
 if chance_counter >= 6:
-    print(f"\nSorry, the word was {word_answer}")
+    print(f"\nSorry, the word was {word_answer.upper()}")
 
 
