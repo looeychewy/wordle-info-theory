@@ -14,8 +14,8 @@ Began working on implementing letter validity mechanics
 
 1.02
 Implemented letter match/mismatch mechanics:
-    - find_match: looks for matching letters between guess and answer using zip() and set() -> groups into tuples, find length of set of tuples
-    - find_mismatch: same logic as find_match, if length of set is greater than 1, mismatch
+    - find_match(): looks for matching letters between guess and answer using zip() and set() -> groups into tuples, find length of set of tuples
+    - find_mismatch(): same logic as find_match, if length of set is greater than 1, mismatch
 """
 import random
 
@@ -61,15 +61,6 @@ Color denotation:
         # in answer, wrong place
         # not in answer
     # Add color highlights to terminal after
-
-# Check if letters in player_guess are in the same index in word_answer
-    # "python character comparison"
-    # Nest into function?
-        # compare_char = [word_answer, player_guess]
-        # zip(*compare_char)
-        # ---- Alternatively ----
-        # compare_char(player_guess, word_answer)
-    # would take returned function value and use to denote letter validity
 '''
 player_guess = ""
 
