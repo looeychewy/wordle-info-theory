@@ -13,7 +13,9 @@ Basic word guessing game with some core Wordle logic:
 Began working on implementing letter validity mechanics
 
 1.02
-Implemented letter match/mismatch mechanics
+Implemented letter match/mismatch mechanics:
+    - find_match: looks for matching letters between guess and answer using zip() and set() -> groups into tuples, find length of set of tuples
+    - find_mismatch: same logic as find_match, if length of set is greater than 1, mismatch
 """
 import random
 
