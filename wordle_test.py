@@ -52,7 +52,6 @@ guess_pool = [
 ]
 # answer_pool = []
 
-
 # TODO: Color denotation mechanics, answer pool from guess pool?
 ''' 
 Color denotation:
@@ -61,7 +60,20 @@ Color denotation:
         # in answer, wrong place
         # not in answer
     # Add color highlights to terminal after
+    
+Use ANSI Escape codes -> link an external file?
 '''
+
+# ANSI Escape Codes for terminal coloring
+# Letter highlight colors
+BG_GREEN  = "\033[42m"
+BG_YELLOW = "\033[43m"
+BG_GREY = "\033[100m"
+
+# Text colors
+FG_BLACK = "\033[30m"
+FG_WHITE = "\033[97m"
+
 player_guess = ""
 
 word_answer = random.choice(guess_pool)
