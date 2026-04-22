@@ -19,6 +19,7 @@ root.configure(background="Dark grey")
 root.geometry("1260x500+150+200") # +[VALUE] sets on-screen pos., x & y respectively
 root.resizable(False, False)
 
+
 # Sets main title for the application window
 main_title = Label(root, width=39, bg='Dark Grey', font=('arial', 40, 'bold'), text='\tWordle Keyboard\t', padx=12)
 main_title.grid(row=0, column=0)
