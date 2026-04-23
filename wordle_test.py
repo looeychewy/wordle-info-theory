@@ -16,8 +16,25 @@ Began working on implementing letter validity mechanics
 Implemented letter match/mismatch mechanics:
     - find_match(): looks for matching letters between guess and answer using zip() and set() -> groups into tuples, find length of set of tuples
     - find_mismatch(): same logic as find_match, if length of set is greater than 1, mismatch
+
+1.03
+Added inserting blanks in find_match() if mismatches are found
 """
 import random
+
+# ANSI Escape Codes for terminal coloring
+# Letter highlight colors
+BG_GREEN  = "\033[42m"
+BG_YELLOW = "\033[43m"
+BG_GREY = "\033[100m"
+
+# Text colors
+FG_BLACK = "\033[30m"
+FG_WHITE = "\033[97m"
+
+# Clear terminal colors
+RESET = "\033[0m"
+
 
 # Helper function to get and keep user input at lowercase
 def get_input(prompt):
@@ -30,6 +47,8 @@ def find_match(player_guess, word_answer):
     for letters in zip(player_guess, word_answer):
         if len(set(letters)) == 1:
             matches += letters[0]
+        else:
+            matches += "_"
 
     return matches
 
@@ -64,20 +83,10 @@ Color denotation:
 Use ANSI Escape codes -> link an external file?
 '''
 
-# ANSI Escape Codes for terminal coloring
-# Letter highlight colors
-BG_GREEN  = "\033[42m"
-BG_YELLOW = "\033[43m"
-BG_GREY = "\033[100m"
-
-# Text colors
-FG_BLACK = "\033[30m"
-FG_WHITE = "\033[97m"
-
 player_guess = ""
 
 word_answer = random.choice(guess_pool)
-print(word_answer) # Prints correct game answer for testing
+# print(word_answer) # Prints correct game answer for testing
 
 # Main gameplay loop, tracks chances used
 chance_counter = 0
