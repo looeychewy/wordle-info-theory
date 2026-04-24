@@ -21,8 +21,9 @@ Implemented letter match/mismatch mechanics:
 Added inserting blanks in find_match() if mismatches are found
 
 1.04
-Implemented color denotation (Green, Yellow, Grey) for letter matching in find_match()
-Reworked/revised find_match()
+- Implemented color denotation (Green, Yellow, Grey) for letter matching in find_match()
+- Reworked/revised find_match()
+- Expanded guess pool drastically for better gameplay (how to wrap lines cleanly/wrap lines in PyCharm? 🤓)
 """
 import random
 
@@ -45,7 +46,7 @@ CLEAR_COL = "\033[0m"
 def get_input(prompt):
     return input(prompt).lower()
 
-# Finds letter matches between player_guess and word_answer, returns matched letters and underscores if unmatched as a string
+# Finds letter matches between player_guess and word_answer, highlights letters GREEN, YELLOW, GREY accordingly
 def find_match(player_guess, word_answer):
     matches = ""
 
@@ -63,7 +64,7 @@ def find_match(player_guess, word_answer):
 # Rudimentary guess pool (will be expanded much larger later on)
 guess_pool = [
 "abide", "bland", "blank", "bleed", "blend", "blimp", "blink", "brain", "brawn", "breed", "brink", "bring", "brown",
-    "chunk", "clamp", "cling", "cluck", "clump", "clunk", "crack", "cramp", "crane", "crate", "creed", "crimp", "drain",
+"chunk", "clamp", "cling", "cluck", "clump", "clunk", "crack", "cramp", "crane", "crate", "creed", "crimp", "drain",
     "drawn", "drink", "faker", "field", "fiend", "flame", "flake", "flare", "fling", "franc", "frank", "frame", "frown",
     "glare", "grail", "grain", "greed", "green", "laser", "later", "learn", "least", "maker", "maser", "plank"
 ]
