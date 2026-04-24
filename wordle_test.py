@@ -12,15 +12,15 @@ Basic word guessing game with some core Wordle logic:
 1.01
 Began working on implementing letter validity mechanics
 
-1.02
+1.1
 Implemented letter match/mismatch mechanics:
     - find_match(): looks for matching letters between guess and answer using zip() and set() -> groups into tuples, find length of set of tuples
     - find_mismatch(): same logic as find_match, if length of set is greater than 1, mismatch
 
-1.03
+1.11
 Added inserting blanks in find_match() if mismatches are found
 
-1.04
+1.2
 - Implemented color denotation (Green, Yellow, Grey) for letter matching in find_match()
 - Reworked/revised find_match()
 - Expanded guess pool drastically for better gameplay -> set in an external file wordle_guess_pool.py
