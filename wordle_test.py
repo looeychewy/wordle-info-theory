@@ -69,7 +69,7 @@ def find_match(player_guess, word_answer):
 player_guess = ""
 word_answer = random.choice(guess_pool)
 
-print(word_answer) # Prints correct game answer for testing
+# print(word_answer) # Prints correct game answer for testing
 
 # Main gameplay loop, tracks chances used
 chance_counter = 0
