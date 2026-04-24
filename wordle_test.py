@@ -19,48 +19,46 @@ Implemented letter match/mismatch mechanics:
 
 1.03
 Added inserting blanks in find_match() if mismatches are found
+
+1.04
+Implemented color denotation (Green, Yellow, Grey) for letter matching in find_match()
+Reworked/revised find_match()
 """
 import random
 
-# ANSI Escape Codes for terminal coloring
-# Letter highlight colors
-BG_GREEN  = "\033[42m"
-BG_YELLOW = "\033[43m"
-BG_GREY = "\033[100m"
+# TODO: Double letter color denotation mechanic
 
-# Text colors
-FG_BLACK = "\033[30m"
-FG_WHITE = "\033[97m"
+"""
+1. cluck (two c's)
+"""
+
+# ANSI Escape Codes for terminal coloring
+# Terminal colors for guess scenarios (Background Color + Text Color concatentation)
+GREEN  = "\033[42m" + "\033[30m"
+YELLOW = "\033[43m" + "\033[30m"
+GREY = "\033[100m"
 
 # Clear terminal colors
-RESET = "\033[0m"
-
+CLEAR_COL = "\033[0m"
 
 # Helper function to get and keep user input at lowercase
 def get_input(prompt):
     return input(prompt).lower()
 
+# Finds letter matches between player_guess and word_answer, returns matched letters and underscores if unmatched as a string
 def find_match(player_guess, word_answer):
     matches = ""
 
     # Looks for common letters in guess_pool + player_guess, sticks them into matches or mismatches variable
-    for letters in zip(player_guess, word_answer):
-        if len(set(letters)) == 1:
-            matches += letters[0]
-        else:
-            matches += "_"
+    for letters in zip(player_guess, word_answer): # For each tuple of zipped letters between player_guess and word_answer
+        if letters[0] in word_answer and len(set(letters)) == 1: # If guess letter in answer and same place
+            matches += f" {GREEN}{letters[0]}{CLEAR_COL}" # Highlight green
+        elif letters[0] in word_answer and len(set(letters)) != 1: # If guess letter in answer but not same place
+            matches += f" {YELLOW}{letters[0]}{CLEAR_COL}" # Highlight yellow
+        elif letters[0] not in word_answer: # If guess letter not in answer
+            matches += f" {GREY}{letters[0]}{CLEAR_COL}"
 
     return matches
-
-def find_mismatch(player_guess, word_answer):
-    mismatches = ""
-
-    # Looks for common letters in guess_pool + player_guess, sticks them into matches or mismatches variable
-    for letters in zip(player_guess, word_answer):
-        if len(set(letters)) > 1:
-            mismatches += letters[0]
-
-    return mismatches
 
 # Rudimentary guess pool (will be expanded much larger later on)
 guess_pool = [
@@ -69,30 +67,15 @@ guess_pool = [
     "drawn", "drink", "faker", "field", "fiend", "flame", "flake", "flare", "fling", "franc", "frank", "frame", "frown",
     "glare", "grail", "grain", "greed", "green", "laser", "later", "learn", "least", "maker", "maser", "plank"
 ]
-# answer_pool = []
-
-# TODO: Color denotation mechanics, answer pool from guess pool?
-''' 
-Color denotation:
-    # Check which letters are:
-        # in answer, right place
-        # in answer, wrong place
-        # not in answer
-    # Add color highlights to terminal after
-    
-Use ANSI Escape codes -> link an external file?
-'''
 
 player_guess = ""
-
 word_answer = random.choice(guess_pool)
-# print(word_answer) # Prints correct game answer for testing
+print(word_answer) # Prints correct game answer for testing
 
 # Main gameplay loop, tracks chances used
 chance_counter = 0
 while chance_counter < 6:
-    player_guess = get_input(f"Chances used: {chance_counter}. Letters matched: {find_match(player_guess, word_answer)}."
-                             f" Letters mismatched: {find_mismatch(player_guess, word_answer)} Enter your guess: ")
+    player_guess = get_input(f"Chances used: {chance_counter}. Output:{find_match(player_guess, word_answer)}. Enter your guess: ")
 
     # Continuously asks player to input valid guess if their input is not in the guess pool
     while player_guess != word_answer and player_guess not in guess_pool:
