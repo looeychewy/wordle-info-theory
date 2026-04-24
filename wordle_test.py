@@ -25,13 +25,15 @@ Added inserting blanks in find_match() if mismatches are found
 - Reworked/revised find_match()
 - Expanded guess pool drastically for better gameplay -> set in an external file wordle_guess_pool.py
 """
+
 import random
 from wordle_guess_pool import guess_pool
 
-# TODO: Double letter color denotation mechanic
-
-"""
-1. cluck (two c's)
+# TODO: Double letter color priority mechanic (abase, terror, terry, etc.)
+    # GUI -> tkinter app implementation next?
+""" 
+ie cluck (two c's)
+Look for if letter count greater than 1? -> str.count()
 """
 
 # ANSI Escape Codes for terminal coloring
@@ -43,6 +45,7 @@ GREY = "\033[100m"
 # Clear terminal colors
 CLEAR_COL = "\033[0m"
 
+
 # Helper function to get and keep user input at lowercase
 def get_input(prompt):
     return input(prompt).lower()
@@ -51,19 +54,21 @@ def get_input(prompt):
 def find_match(player_guess, word_answer):
     matches = ""
 
-    # Looks for common letters in guess_pool + player_guess, sticks them into matches or mismatches variable
-    for letters in zip(player_guess, word_answer): # For each tuple of zipped letters between player_guess and word_answer
-        if letters[0] in word_answer and len(set(letters)) == 1: # If guess letter in answer and same place
-            matches += f" {GREEN}{letters[0]}{CLEAR_COL}" # Highlight green
-        elif letters[0] in word_answer and len(set(letters)) != 1: # If guess letter in answer but not same place
-            matches += f" {YELLOW}{letters[0]}{CLEAR_COL}" # Highlight yellow
-        elif letters[0] not in word_answer: # If guess letter not in answer
-            matches += f" {GREY}{letters[0]}{CLEAR_COL}"
+    # Compare counts?
+        # if player_guess.count(letters[0]) > 1
+    for letters in zip(player_guess, word_answer):
+        if letters[0] in word_answer and len(set(letters)) == 1:
+            matches += f" {GREEN}{letters[0]}{CLEAR_COL}"   # Green  -> in word, correct place
+        elif letters[0] in word_answer and len(set(letters)) != 1:
+            matches += f" {YELLOW}{letters[0]}{CLEAR_COL}"  # Yellow -> in word, wrong place
+        elif letters[0] not in word_answer:
+            matches += f" {GREY}{letters[0]}{CLEAR_COL}"    # Grey   -> not in word
 
     return matches
 
 player_guess = ""
 word_answer = random.choice(guess_pool)
+
 print(word_answer) # Prints correct game answer for testing
 
 # Main gameplay loop, tracks chances used
