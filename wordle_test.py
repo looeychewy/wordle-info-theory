@@ -23,7 +23,7 @@ Added inserting blanks in find_match() if mismatches are found
 1.04
 - Implemented color denotation (Green, Yellow, Grey) for letter matching in find_match()
 - Reworked/revised find_match()
-- Expanded guess pool drastically for better gameplay -> set in an external file
+- Expanded guess pool drastically for better gameplay -> set in an external file wordle_guess_pool.py
 """
 import random
 from wordle_guess_pool import guess_pool
