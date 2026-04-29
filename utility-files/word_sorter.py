@@ -1,15 +1,4 @@
-"""
-sort_words.py
--------------
-Reads a multiline list of 5-letter English words from stdin (or a file),
-cleans and validates each word, deduplicates, sorts alphabetically,
-and writes a readable CSV with index numbers.
-
-Usage:
-    python sort_words.py < words.txt
-    python sort_words.py words.txt
-    python sort_words.py words.txt output.csv
-"""
+# quick claude program to sort unsorted list of 5 letter words from .txt and output .csv
 
 import sys
 import csv
