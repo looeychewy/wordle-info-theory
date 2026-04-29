@@ -40,7 +40,7 @@ player_guess initialize to a set?
 """
 
 # ANSI Escape Codes for terminal coloring
-# Terminal colors for guess scenarios (Background Color + Text Color concatentation)
+# Terminal colors for guess scenarios (Background Color + Text Color concatenation)
 GREEN  = "\033[42m" + "\033[30m"
 YELLOW = "\033[43m" + "\033[30m"
 GREY = "\033[100m"
@@ -49,11 +49,11 @@ GREY = "\033[100m"
 CLEAR_COL = "\033[0m"
 
 
-def get_input(prompt):
-    """Helper function to get and keep user input at lowercase
+def get_input(prompt: str) -> str:
+    """Helper function to get and keep player input at lowercase when they enter their Wordle guesses.
 
     Args:
-        prompt (str): prompt to get user input
+        prompt (str): Prompts player to enter their guess, shows chances used and letter match output
     Returns:
         Prompt nested inside input function, set to lowercase
 
@@ -61,8 +61,7 @@ def get_input(prompt):
     return input(prompt).lower()
 
 
-# Finds letter matches between player_guess and word_answer, highlights letters GREEN, YELLOW, GRAY accordingly
-def find_match(player_guess, word_answer):
+def find_match(player_guess: str, word_answer: str) -> str:
     """Finds matching letters between player_guess and word_answer using zip() and set() -> groups into tuples, find length of set of tuples
     to determine if letters in these tuples are matches or not. Highlights letters GREEN, YELLOW, and GRAY accordingly.
 
@@ -75,8 +74,6 @@ def find_match(player_guess, word_answer):
     """
     matches = ""
 
-    # Compare counts?
-    # if player_guess.count(letters[0]) > 1
     for letters in zip(player_guess, word_answer):
         if letters[0] in word_answer and len(set(letters)) == 1:
             matches += f" {GREEN}{letters[0]}{CLEAR_COL}"  # Green  -> in word, correct place
