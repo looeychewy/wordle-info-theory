@@ -29,7 +29,8 @@ Added inserting blanks in find_match() if mismatches are found
 import random
 from wordle_guess_pool import guess_pool
 
-# TODO: Double letter color priority mechanic (abase, terror, terry, etc.)
+# TODO: Type hints, docstrings, guess pool to a csv file
+# Next: Double letter color priority mechanic (abase, terror, terry, etc.)
     # GUI -> tkinter app implementation next?
 """ 
 ie cluck (two c's)
