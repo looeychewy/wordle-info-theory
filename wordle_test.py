@@ -108,8 +108,8 @@ if __name__ == "__main__":
         if player_guess != word_answer and player_guess in guess_pool:
             chance_counter += 1
         elif player_guess == word_answer:
-            print(f"Correct! Word is {word_answer.upper()}!")
+            print(f"Correct! Word is {GREEN}{word_answer.upper()}{CLEAR_COL}!")
             break
 
     if chance_counter >= 6:
-        print(f"\nSorry, the word was {word_answer.upper()}")
+        print(f"\nSorry, the word was {GREY}{word_answer.upper()}{CLEAR_COL}")
