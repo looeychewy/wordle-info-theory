@@ -34,6 +34,9 @@ from wordle_guess_pool import guess_pool
 """ 
 ie cluck (two c's)
 Look for if letter count greater than 1? -> str.count()
+player_guess initialize to a set?
+    - pop letters from once detected to prevent double detection
+    - list maybe?
 """
 
 # ANSI Escape Codes for terminal coloring
@@ -47,7 +50,7 @@ CLEAR_COL = "\033[0m"
 
 
 # Helper function to get and keep user input at lowercase
-def get_input(prompt):
+def get_input(prompt: str):
     return input(prompt).lower()
 
 # Finds letter matches between player_guess and word_answer, highlights letters GREEN, YELLOW, GREY accordingly
@@ -58,39 +61,39 @@ def find_match(player_guess, word_answer):
         # if player_guess.count(letters[0]) > 1
     for letters in zip(player_guess, word_answer):
         if letters[0] in word_answer and len(set(letters)) == 1:
-            matches += f" {GREEN}{letters[0]}{CLEAR_COL}"   # Green  -> in word, correct place
+            matches += f" {GREEN}{letters[0]}{CLEAR_COL}"   # Green -> in word, correct place
         elif letters[0] in word_answer and len(set(letters)) != 1:
             matches += f" {YELLOW}{letters[0]}{CLEAR_COL}"  # Yellow -> in word, wrong place
         elif letters[0] not in word_answer:
-            matches += f" {GREY}{letters[0]}{CLEAR_COL}"    # Grey   -> not in word
+            matches += f" {GREY}{letters[0]}{CLEAR_COL}"    # Grey -> not in word
 
     return matches
 
-player_guess = ""
-word_answer = random.choice(guess_pool)
+if __name__ == "__main__":
+    player_guess = ""
+    word_answer = random.choice(guess_pool)
+    # print(word_answer) # Prints correct game answer for testing
 
-# print(word_answer) # Prints correct game answer for testing
+    # Main gameplay loop, tracks chances used
+    chance_counter = 0
+    while chance_counter < 6:
+        player_guess = get_input(f"Chances used: {chance_counter}. Output:{find_match(player_guess, word_answer)}. Enter your guess: ")
 
-# Main gameplay loop, tracks chances used
-chance_counter = 0
-while chance_counter < 6:
-    player_guess = get_input(f"Chances used: {chance_counter}. Output:{find_match(player_guess, word_answer)}. Enter your guess: ")
+        # Continuously asks player to input valid guess if their input is not in the guess pool
+        while player_guess != word_answer and player_guess not in guess_pool:
+            if len(player_guess) != 5:
+                player_guess = get_input("Guess should only be 5 characters, try again: ")
+            else:
+                player_guess = get_input("Word not in list, try again: ")
 
-    # Continuously asks player to input valid guess if their input is not in the guess pool
-    while player_guess != word_answer and player_guess not in guess_pool:
-        if len(player_guess) != 5:
-            player_guess = get_input("Guess should only be 5 characters, try again: ")
-        else:
-            player_guess = get_input("Word not in list, try again: ")
+        # Player guess validity, determines whether guess is the correct answer
+        if player_guess != word_answer and player_guess in guess_pool:
+            chance_counter += 1
+        elif player_guess == word_answer:
+            print(f"Correct! Word is {word_answer.upper()}!")
+            break
 
-    # Player guess validity, determines whether guess is the correct answer
-    if player_guess != word_answer and player_guess in guess_pool:
-        chance_counter += 1
-    elif player_guess == word_answer:
-        print(f"Correct! Word is {word_answer.upper()}!")
-        break
-
-if chance_counter >= 6:
-    print(f"\nSorry, the word was {word_answer.upper()}")
+    if chance_counter >= 6:
+        print(f"\nSorry, the word was {word_answer.upper()}")
 
 
