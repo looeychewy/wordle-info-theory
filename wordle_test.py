@@ -29,8 +29,10 @@ Added inserting blanks in find_match() if mismatches are found
 import random
 from wordle_guess_pool import guess_pool
 
-# TODO: Double letter color priority mechanic (abase, terror, terry, etc.)
-    # GUI -> tkinter app implementation next?
+# TODO: Type hints, docstrings, guess pool to a csv file
+    # Function to find more common English words from the guess pool to only choose those as the answer?
+    # Next: Double letter color priority mechanic (abase, terror, terry, etc.)
+        # GUI -> tkinter app implementation next?
 """ 
 ie cluck (two c's)
 Look for if letter count greater than 1? -> str.count()
@@ -87,7 +89,7 @@ def find_match(player_guess: str, word_answer: str) -> str:
 if __name__ == "__main__":
     player_guess = ""
     word_answer = random.choice(guess_pool)
-    # print(word_answer) # Prints correct game answer for testing
+    print(word_answer) # Prints correct game answer for testing
 
     # Main gameplay loop, tracks chances used
     chance_counter = 0
@@ -105,8 +107,8 @@ if __name__ == "__main__":
         if player_guess != word_answer and player_guess in guess_pool:
             chance_counter += 1
         elif player_guess == word_answer:
-            print(f"Correct! Word is {word_answer.upper()}!")
+            print(f"Correct! Word is {GREEN}{word_answer.upper()}{CLEAR_COL}!")
             break
 
     if chance_counter >= 6:
-        print(f"\nSorry, the word was {word_answer.upper()}")
+        print(f"\nSorry, the word was {GREY}{word_answer.upper()}{CLEAR_COL}")
