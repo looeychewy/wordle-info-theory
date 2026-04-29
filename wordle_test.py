@@ -49,23 +49,41 @@ GREY = "\033[100m"
 CLEAR_COL = "\033[0m"
 
 
-# Helper function to get and keep user input at lowercase
-def get_input(prompt: str):
+def get_input(prompt):
+    """Helper function to get and keep user input at lowercase
+
+    Args:
+        prompt (str): prompt to get user input
+    Returns:
+        Prompt nested inside input function, set to lowercase
+
+    """
     return input(prompt).lower()
 
-# Finds letter matches between player_guess and word_answer, highlights letters GREEN, YELLOW, GREY accordingly
+
+# Finds letter matches between player_guess and word_answer, highlights letters GREEN, YELLOW, GRAY accordingly
 def find_match(player_guess, word_answer):
+    """Finds matching letters between player_guess and word_answer using zip() and set() -> groups into tuples, find length of set of tuples
+    to determine if letters in these tuples are matches or not. Highlights letters GREEN, YELLOW, and GRAY accordingly.
+
+    Args:
+        player_guess (str): Player's guessed word
+        word_answer (str): Actual answer determined by random.choice()
+    Returns:
+        Colorized output, individual letters colored in GREEN, YELLOW, and GRAY depending on if matches exist or not.
+
+    """
     matches = ""
 
     # Compare counts?
-        # if player_guess.count(letters[0]) > 1
+    # if player_guess.count(letters[0]) > 1
     for letters in zip(player_guess, word_answer):
         if letters[0] in word_answer and len(set(letters)) == 1:
-            matches += f" {GREEN}{letters[0]}{CLEAR_COL}"   # Green -> in word, correct place
+            matches += f" {GREEN}{letters[0]}{CLEAR_COL}"  # Green  -> in word, correct place
         elif letters[0] in word_answer and len(set(letters)) != 1:
             matches += f" {YELLOW}{letters[0]}{CLEAR_COL}"  # Yellow -> in word, wrong place
         elif letters[0] not in word_answer:
-            matches += f" {GREY}{letters[0]}{CLEAR_COL}"    # Grey -> not in word
+            matches += f" {GREY}{letters[0]}{CLEAR_COL}"  # Gray -> not in word
 
     return matches
 
@@ -95,5 +113,3 @@ if __name__ == "__main__":
 
     if chance_counter >= 6:
         print(f"\nSorry, the word was {word_answer.upper()}")
-
-
