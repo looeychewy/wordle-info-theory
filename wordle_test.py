@@ -30,8 +30,9 @@ import random
 from wordle_guess_pool import guess_pool
 
 # TODO: Type hints, docstrings, guess pool to a csv file
-# Next: Double letter color priority mechanic (abase, terror, terry, etc.)
-    # GUI -> tkinter app implementation next?
+    # Function to find more common English words from the guess pool to only choose those as the answer?
+    # Next: Double letter color priority mechanic (abase, terror, terry, etc.)
+        # GUI -> tkinter app implementation next?
 """ 
 ie cluck (two c's)
 Look for if letter count greater than 1? -> str.count()

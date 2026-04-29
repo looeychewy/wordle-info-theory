@@ -1,4 +1,18 @@
+"""
+sort_words.py
+-------------
+Reads a multiline list of 5-letter English words from stdin (or a file),
+cleans and validates each word, deduplicates, sorts alphabetically,
+and writes a readable CSV with index numbers.
+
+Usage:
+    python sort_words.py < words.txt
+    python sort_words.py words.txt
+    python sort_words.py words.txt output.csv
+"""
+
 # quick claude program to sort unsorted list of 5 letter words from .txt and output .csv
+
 
 import sys
 import csv
@@ -19,7 +33,7 @@ def clean_and_validate(lines: list[str]) -> list[str]:
     seen = set()
     words = []
     for line in lines:
-        for token in line.split():           # handles multiple words per line
+        for token in line.split():  # handles multiple words per line
             word = token.strip().lower()
             if len(word) == 5 and word.isalpha() and word not in seen:
                 seen.add(word)
@@ -39,9 +53,8 @@ def write_csv(words: list[str], dest) -> None:
 
     try:
         writer = csv.writer(f)
-        writer.writerow(["#", "word", "first_letter"])
-        for i, word in enumerate(words, start=1):
-            writer.writerow([i, word, word[0].upper()])
+        for word in words:
+            writer.writerow([word])
     finally:
         if close_after:
             f.close()
