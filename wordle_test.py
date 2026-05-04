@@ -32,10 +32,10 @@ Added inserting blanks in find_match() if mismatches are found
 import random
 import csv # use csv file instead of .py
 
-# TODO: Type hints, docstrings, guess pool to a csv file
-    # Function to find more common English words from the guess pool to only choose those as the answer?
-    # Next: Double letter color priority mechanic (abase, terror, terry, etc.)
-        # GUI -> tkinter app implementation next?
+# TODO: Function to find more common English words from the guess pool to only choose those as the answer?
+# Next: Double letter color priority mechanic (abase, terror, terry, etc.)
+    # GUI -> tkinter app implementation next?
+
 """ 
 ie cluck (two c's)
 Look for if letter count greater than 1? -> str.count()
@@ -61,8 +61,8 @@ def get_input(prompt: str) -> str:
         prompt (str): Prompts player to enter their guess, shows chances used and letter match output
     Returns:
         Prompt nested inside input function, set to lowercase
-
     """
+
     return input(prompt).lower()
 
 
@@ -75,8 +75,8 @@ def find_match(player_guess: str, word_answer: str) -> str:
         word_answer (str): Actual answer determined by random.choice()
     Returns:
         Colorized output, individual letters colored in GREEN, YELLOW, and GRAY depending on if matches exist or not.
-
     """
+
     matches = ""
 
     for letters in zip(player_guess, word_answer): # For each tuple in the zip object
