@@ -24,6 +24,9 @@ Added inserting blanks in find_match() if mismatches are found
 - Implemented color denotation (Green, Yellow, Grey) for letter matching in find_match()
 - Reworked/revised find_match()
 - Expanded guess pool drastically for better gameplay -> set in an external file wordle_guess_pool.py
+
+1.3
+- Implement csv file to hold guess pool data (alts -> ?0)
 """
 
 import random
