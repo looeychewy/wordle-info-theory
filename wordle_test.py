@@ -10,7 +10,7 @@ Basic word guessing game with some core Wordle logic:
         - if all chances used -> end game, print correct answer
 
 1.01
-Began working on implementing letter validity mechanicss
+Began working on implementing letter validity mechanics
 
 1.1
 Implemented letter match/mismatch mechanics:
@@ -91,6 +91,7 @@ def find_match(player_guess: str, word_answer: str) -> str:
 
 if __name__ == "__main__":
     player_guess = ""
+
     with open ("wordle-guess-pool.csv", newline='') as wordfile:
         reader = csv.reader(wordfile)
         data = [row[0] for row in reader]
@@ -104,14 +105,14 @@ if __name__ == "__main__":
             player_guess = get_input(f"Chances used: {chance_counter}. Output:{find_match(player_guess, word_answer)}. Enter your guess: ")
 
             # Continuously asks player to input valid guess if their input is not in the guess pool
-            while player_guess != word_answer and player_guess not in guess_pool:
+            while player_guess != word_answer and player_guess not in data:
                 if len(player_guess) != 5:
                     player_guess = get_input("Guess should only be 5 characters, try again: ")
                 else:
                     player_guess = get_input("Word not in list, try again: ")
 
             # Player guess validity, determines whether guess is the correct answer
-            if player_guess != word_answer and player_guess in guess_pool:
+            if player_guess != word_answer and player_guess in data:
                 chance_counter += 1
             elif player_guess == word_answer:
                 print(f"Correct! Word is {GREEN}{word_answer.upper()}{CLEAR_COL}!")
