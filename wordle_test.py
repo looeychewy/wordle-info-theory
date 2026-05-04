@@ -79,7 +79,7 @@ def find_match(player_guess: str, word_answer: str) -> str:
     """
     matches = ""
 
-    for letters in zip(player_guess, word_answer):
+    for letters in zip(player_guess, word_answer): # For each tuple in the zip object
         if letters[0] in word_answer and len(set(letters)) == 1:
             matches += f" {GREEN}{letters[0]}{CLEAR_COL}"  # Green  -> in word, correct place
         elif letters[0] in word_answer and len(set(letters)) != 1:
@@ -88,6 +88,11 @@ def find_match(player_guess: str, word_answer: str) -> str:
             matches += f" {GREY}{letters[0]}{CLEAR_COL}"  # Gray -> not in word
 
     return matches
+
+def double_letters(player_guess: str):
+    for letter in player_guess:
+        if player_guess.count(letter) > 1:
+            pass # some output here
 
 if __name__ == "__main__":
     player_guess = ""
