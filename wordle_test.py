@@ -10,7 +10,7 @@ Basic word guessing game with some core Wordle logic:
         - if all chances used -> end game, print correct answer
 
 1.01
-Began working on implementing letter validity mechanics
+Began working on implementing letter validity mechanicss
 
 1.1
 Implemented letter match/mismatch mechanics:
