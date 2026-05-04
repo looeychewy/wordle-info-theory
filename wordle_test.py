@@ -27,6 +27,8 @@ Added inserting blanks in find_match() if mismatches are found
 """
 
 import random
+import csv # use csv file instead of .py
+
 from wordle_guess_pool import guess_pool
 
 # TODO: Type hints, docstrings, guess pool to a csv file
@@ -88,27 +90,31 @@ def find_match(player_guess: str, word_answer: str) -> str:
 
 if __name__ == "__main__":
     player_guess = ""
-    word_answer = random.choice(guess_pool)
-    print(word_answer) # Prints correct game answer for testing
+    with open ("wordle-guess-pool.csv", newline='') as wordfile:
+        reader = csv.reader(wordfile)
+        data = [row[0] for row in reader]
+        word_answer = random.choice(data)
 
-    # Main gameplay loop, tracks chances used
-    chance_counter = 0
-    while chance_counter < 6:
-        player_guess = get_input(f"Chances used: {chance_counter}. Output:{find_match(player_guess, word_answer)}. Enter your guess: ")
+        print(word_answer) # Prints correct game answer for testing
 
-        # Continuously asks player to input valid guess if their input is not in the guess pool
-        while player_guess != word_answer and player_guess not in guess_pool:
-            if len(player_guess) != 5:
-                player_guess = get_input("Guess should only be 5 characters, try again: ")
-            else:
-                player_guess = get_input("Word not in list, try again: ")
+        # Main gameplay loop, tracks chances used
+        chance_counter = 0
+        while chance_counter < 6:
+            player_guess = get_input(f"Chances used: {chance_counter}. Output:{find_match(player_guess, word_answer)}. Enter your guess: ")
 
-        # Player guess validity, determines whether guess is the correct answer
-        if player_guess != word_answer and player_guess in guess_pool:
-            chance_counter += 1
-        elif player_guess == word_answer:
-            print(f"Correct! Word is {GREEN}{word_answer.upper()}{CLEAR_COL}!")
-            break
+            # Continuously asks player to input valid guess if their input is not in the guess pool
+            while player_guess != word_answer and player_guess not in guess_pool:
+                if len(player_guess) != 5:
+                    player_guess = get_input("Guess should only be 5 characters, try again: ")
+                else:
+                    player_guess = get_input("Word not in list, try again: ")
 
-    if chance_counter >= 6:
-        print(f"\nSorry, the word was {GREY}{word_answer.upper()}{CLEAR_COL}")
+            # Player guess validity, determines whether guess is the correct answer
+            if player_guess != word_answer and player_guess in guess_pool:
+                chance_counter += 1
+            elif player_guess == word_answer:
+                print(f"Correct! Word is {GREEN}{word_answer.upper()}{CLEAR_COL}!")
+                break
+
+        if chance_counter >= 6:
+            print(f"\nSorry, the word was {GREY}{word_answer.upper()}{CLEAR_COL}")
