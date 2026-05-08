@@ -42,10 +42,19 @@ def find_match(player_guess: str, word_answer: str) -> str:
         Colorized output, individual letters colored in GREEN, YELLOW, and GRAY depending on if matches exist or not.
     """
 
-    # 
-
+    # implement double letter here?
+    # how does it work?
+        # take player_guess and word_answer
+        # compare individual letters between each one, see if there's matches
+            # how account for letter frequency?
+        # If letter is guessed more time than appears in answer, extra instances of said letter will show as
+        # gray, even if it's in the answer otherwise
 
     matches = ""
+
+    for i, (g, a) in enumerate(zip(player_guess, word_answer)):
+        print(i, g, a)
+
     for letters in zip(player_guess, word_answer): # For each tuple in the zip object
 
         if letters[0] in word_answer and len(set(letters)) == 1:
@@ -57,15 +66,10 @@ def find_match(player_guess: str, word_answer: str) -> str:
 
     return matches
 
-def double_letters(player_guess: str):
-    for letter in player_guess:
-        if player_guess.count(letter) > 1:
-            pass # some output here
-
 if __name__ == "__main__":
     player_guess = ""
 
-    with open ("wordle-guess-pool.csv", newline='') as wordfile:
+    with open ("test_pool.csv", newline='') as wordfile:
         reader = csv.reader(wordfile)
         data = [row[0] for row in reader]
         word_answer = random.choice(data)
