@@ -1,0 +1,28 @@
+1.0
+Basic word guessing game with some core Wordle logic:
+    - 6 chances to guess a 5-letter word, answer (singular) chosen from valid guess pool (50 random words for this case)
+    - Player_guess check logic:
+        - if guess is NOT answer AND in guess_pool, increment chance counter
+            - if guess is NOT answer AND NOT in guess_pool -> "invalid, try again: "
+            - if len(guess) > 5 characters -> "guess should only be 5 characters, try again: "
+        - if guess is answer -> print answer, end game
+        - if all chances used -> end game, print correct answer
+
+1.01
+Began working on implementing letter validity mechanics
+
+1.1
+Implemented letter match/mismatch mechanics:
+    - find_match(): looks for matching letters between guess and answer using zip() and set() -> groups into tuples, find length of set of tuples
+    - find_mismatch(): same logic as find_match, if length of set is greater than 1, mismatch
+
+1.11
+Added inserting blanks in find_match() if mismatches are found
+
+1.2
+- Implemented color denotation (Green, Yellow, Grey) for letter matching in find_match()
+- Reworked/revised find_match()
+- Expanded guess pool drastically for better gameplay -> set in an external file wordle_guess_pool.py
+
+1.3
+- Implement csv file to hold guess pool data (alts -> ?0)
