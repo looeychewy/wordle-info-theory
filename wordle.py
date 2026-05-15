@@ -59,14 +59,12 @@ def find_match(play_guess: str, final_answer: str) -> str:
     return "".join(matches) # Joins all items in matches using "" as separator
 
 if __name__ == "__main__":
-    player_guess = ""
 
+    player_guess = ""
     with (open("guess_pool.csv", newline='') as word_file):
         reader = csv.reader(word_file)
         data = [row[0] for row in reader]
         word_answer = random.choice(data)
-
-    # print(word_answer) # Prints correct game answer for testing
 
     # Main gameplay loop, tracks chances used
     chance_counter = 0
