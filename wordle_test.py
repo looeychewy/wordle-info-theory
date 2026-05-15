@@ -1,5 +1,5 @@
 import random
-import csv 
+import csv
 
 # ANSI Escape Codes for terminal colors -> guess scenarios (Background Color + Text Color concatenation)
 GREEN  = "\033[42m" + "\033[30m"
@@ -22,7 +22,7 @@ def get_input(prompt: str) -> str:
     return input(prompt).lower()
 
 
-def find_match(player_guess: str, word_answer: str) -> str:
+def find_match(play_guess: str, final_answer: str) -> str:
     """
     Finds matching letters between player_guess and word_answer using two-pass system:
 
@@ -32,23 +32,23 @@ def find_match(player_guess: str, word_answer: str) -> str:
     Instantiates a matches output list to hold colorized letters and an answer_letters pool to remove letters from if
     matches are found. Letters are highlighted GREEN, YELLOW, or GRAY accordingly based on match conditions.
     Args:
-        player_guess (str): Player's guess word
-        word_answer (str): Actual answer word
+        play_guess (str): Player's guess word
+        final_answer (str): Actual answer word
     Returns:
         Colorized string output, letters colored GREEN, YELLOW, GRAY depending on if matches were found
     """
 
-    matches = [""] * len(word_answer) # Output list to hold colorized letters, length of word_answer (5)
-    answer_letters = list(word_answer) # Instantiate an answer pool to "pop" letters from once found in both words
+    matches = [""] * len(final_answer) # Output list to hold colorized letters, length of word_answer (5)
+    answer_letters = list(final_answer) # Instantiate an answer pool to "pop" letters from once found in both words
 
     # Two passes, first pass to look for green letters and consume from answer_letters
-    for idx, (guess_letter, answer_letter) in enumerate(zip(player_guess, word_answer)):
+    for idx, (guess_letter, answer_letter) in enumerate(zip(play_guess, final_answer)):
         if guess_letter == answer_letter: # Compares equality between guess letter and answer letter at same idx
             matches[idx] = f" {GREEN}{guess_letter}{CLEAR_COL}" # Add guess_letter at current idx to the output list
             answer_letters[idx] = None # "remove" detected letters from list by setting to None
 
     # Second pass to look for yellow and gray letters
-    for idx, guess_letter in enumerate(player_guess):
+    for idx, guess_letter in enumerate(play_guess):
         if matches[idx]:
             continue # if green already, skip
         if guess_letter in answer_letters: # yellow letter condition
@@ -62,8 +62,8 @@ def find_match(player_guess: str, word_answer: str) -> str:
 if __name__ == "__main__":
     player_guess = ""
 
-    with open ("guess_pool.csv", newline='') as wordfile:
-        reader = csv.reader(wordfile)
+    with (open ("guess_pool.csv", newline='') as word_file):
+        reader = csv.reader(word_file)
         data = [row[0] for row in reader]
         word_answer = random.choice(data)
 
