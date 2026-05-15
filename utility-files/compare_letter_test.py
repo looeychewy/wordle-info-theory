@@ -74,6 +74,5 @@ def find_mismatch(player_guess, word_answer):
 
 if __name__ == "__main__":
     print(compare_letter(player_guess, word_answer))
-    print(refine_compare(player_guess, word_answer))
 
 

@@ -1,19 +1,10 @@
 import random
-import csv # efficiency?
-
-# TODO: Double letter color priority mechanic (abase, terror, terry, etc.)
-    # Function to find more common English words from the guess pool to only choose those as the answer?
-    # GUI/tkinter app implementation next for visualization?
-
-""" 
-ie cluck (two c's)
-Look for if letter count greater than 1? -> str.count()
-"""
+import csv 
 
 # ANSI Escape Codes for terminal colors -> guess scenarios (Background Color + Text Color concatenation)
 GREEN  = "\033[42m" + "\033[30m"
 YELLOW = "\033[43m" + "\033[30m"
-GREY = "\033[100m"
+GRAY = "\033[100m"
 
 # Clear terminal colors
 CLEAR_COL = "\033[0m"
@@ -32,44 +23,46 @@ def get_input(prompt: str) -> str:
 
 
 def find_match(player_guess: str, word_answer: str) -> str:
-    """Finds matching letters between player_guess and word_answer using zip() and set() -> groups into tuples, find length of set of tuples
-    to determine if letters in these tuples are matches or not. Highlights letters GREEN, YELLOW, and GRAY accordingly.
+    """
+    Finds matching letters between player_guess and word_answer using two-pass system:
 
+    First pass looks for "GREEN" letters (in both words and in same place).
+    Second pass looks for "YELLOW" (in both words but not same place) + "GRAY" letters (doesn't exist in answer)
+
+    Instantiates a matches output list to hold colorized letters and an answer_letters pool to remove letters from if
+    matches are found. Letters are highlighted GREEN, YELLOW, or GRAY accordingly based on match conditions.
     Args:
-        player_guess (str): Player's guessed word
-        word_answer (str): Actual answer determined by random.choice()
+        player_guess (str): Player's guess word
+        word_answer (str): Actual answer word
     Returns:
-        Colorized output, individual letters colored in GREEN, YELLOW, and GRAY depending on if matches exist or not.
+        Colorized string output, letters colored GREEN, YELLOW, GRAY depending on if matches were found
     """
 
-    # implement double letter here?
-    # how does it work?
-        # take player_guess and word_answer
-        # compare individual letters between each one, see if there's matches
-            # how account for letter frequency?
-        # If letter is guessed more time than appears in answer, extra instances of said letter will show as
-        # gray, even if it's in the answer otherwise
+    matches = [""] * len(word_answer) # Output list to hold colorized letters, length of word_answer (5)
+    answer_letters = list(word_answer) # Instantiate an answer pool to "pop" letters from once found in both words
 
-    matches = ""
+    # Two passes, first pass to look for green letters and consume from answer_letters
+    for idx, (guess_letter, answer_letter) in enumerate(zip(player_guess, word_answer)):
+        if guess_letter == answer_letter: # Compares equality between guess letter and answer letter at same idx
+            matches[idx] = f" {GREEN}{guess_letter}{CLEAR_COL}" # Add guess_letter at current idx to the output list
+            answer_letters[idx] = None # "remove" detected letters from list by setting to None
 
-    for i, (g, a) in enumerate(zip(player_guess, word_answer)):
-        print(i, g, a)
+    # Second pass to look for yellow and gray letters
+    for idx, guess_letter in enumerate(player_guess):
+        if matches[idx]:
+            continue # if green already, skip
+        if guess_letter in answer_letters: # yellow letter condition
+            matches[idx] = f" {YELLOW}{guess_letter}{CLEAR_COL}"
+            answer_letters[answer_letters.index(guess_letter)] = None # "consume" found letter to prevent invalid double yellow
+        else: # gray letter condition
+            matches[idx] = f" {GRAY}{guess_letter}{CLEAR_COL}"
 
-    for letters in zip(player_guess, word_answer): # For each tuple in the zip object
-
-        if letters[0] in word_answer and len(set(letters)) == 1:
-            matches += f" {GREEN}{letters[0]}{CLEAR_COL}"  # Green  -> in word, correct place
-        elif letters[0] in word_answer and len(set(letters)) != 1:
-            matches += f" {YELLOW}{letters[0]}{CLEAR_COL}"  # Yellow -> in word, wrong place
-        elif letters[0] not in word_answer:
-            matches += f" {GREY}{letters[0]}{CLEAR_COL}"  # Gray -> not in word
-
-    return matches
+    return "".join(matches) # Joins all items in matches using "" as separator
 
 if __name__ == "__main__":
     player_guess = ""
 
-    with open ("test_pool.csv", newline='') as wordfile:
+    with open ("guess_pool.csv", newline='') as wordfile:
         reader = csv.reader(wordfile)
         data = [row[0] for row in reader]
         word_answer = random.choice(data)
@@ -96,4 +89,4 @@ if __name__ == "__main__":
                 break
 
         if chance_counter >= 6:
-            print(f"\nSorry, the word was {GREY}{word_answer.upper()}{CLEAR_COL}")
+            print(f"\nSorry, the word was {GRAY}{word_answer.upper()}{CLEAR_COL}")
