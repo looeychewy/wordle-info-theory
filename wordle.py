@@ -58,6 +58,9 @@ def find_match(play_guess: str, final_answer: str) -> str:
 
     return "".join(matches)
 
+def wordle_game():
+    pass
+
 if __name__ == "__main__":
 
     player_guess = ""
