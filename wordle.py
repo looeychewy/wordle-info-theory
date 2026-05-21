@@ -59,10 +59,6 @@ def find_match(play_guess: str, final_answer: str) -> str:
     return "".join(matches)
 
 def wordle_game():
-    pass
-
-if __name__ == "__main__":
-
     player_guess = ""
     with (open("guess_pool.csv", newline='') as word_file):
         reader = csv.reader(word_file)
@@ -72,7 +68,8 @@ if __name__ == "__main__":
     # Main gameplay loop, tracks chances used
     chance_counter = 0
     while chance_counter < 6:
-        player_guess = get_input(f"Chances used: {chance_counter}. Output:{find_match(player_guess, word_answer)}. Enter your guess: ")
+        player_guess = get_input(
+            f"Chances used: {chance_counter}. Output:{find_match(player_guess, word_answer)}. Enter your guess: ")
 
         # Continuously asks player to input valid guess if their input is not in the guess pool
         while player_guess != word_answer and player_guess not in data:
@@ -90,3 +87,6 @@ if __name__ == "__main__":
 
     if chance_counter >= 6:
         print(f"\nSorry, the word was {GRAY}{word_answer.upper()}{CLEAR_COL}")
+
+wordle_game()
+
