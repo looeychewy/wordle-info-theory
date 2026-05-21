@@ -42,8 +42,8 @@ def find_match(play_guess: str, final_answer: str) -> str:
 
     # Two passes, first pass to look for green letters and consume from answer_letters
     for idx, (guess_letter, answer_letter) in enumerate(zip(play_guess, final_answer)):
-        if guess_letter == answer_letter: # Compares equality between guess letter and answer letter at same idx
-            matches[idx] = f" {GREEN}{guess_letter}{CLEAR_COL}" # Add guess_letter at current idx to the output list
+        if guess_letter == answer_letter:
+            matches[idx] = f" {GREEN}{guess_letter}{CLEAR_COL}"
             answer_letters[idx] = None # Set to None instead of .pop() to preserve list length
 
     # Second pass to look for yellow and gray letters (in answer but not same place, not in answer)
