@@ -1,6 +1,6 @@
 # Building Wordle to kill it with Info Theory
  
-## Mechanics:
+## Mechanics
 - 6 chances to guess a 5 letter word
 - If guess not recognized, reject entry and prompt player to try again w/o losing aa turn
 - Hot/cold mechanic (colors to denote letter validity):
@@ -14,6 +14,11 @@
 - If all 6 guesses are used without full green, game ends in a loss and correct answer is shown
 
 ## Installation
-1. Download wordle.py, guess_pool.csv. Both files should be grouped into the same folder
-2. Run ```python wordle.py```
+### Requirements
+- **Latest version of Python (3.x)**
+- Terminals compatible with ANSI (for letter highlighting to work)
+### Setup
+1. Download wordle.py, guess_pool.csv. Group both files into the same folder
+2. Navigate to the folder, open it in your Terminal
+2. Run ```python wordle.py``` (Mac: ```python3 wordle.py```)
 3. Have fun
