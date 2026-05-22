@@ -15,3 +15,8 @@
 
 - If player's guess is entirely green (all letters correct and in right place), game ends in a win
 - If all 6 guesses are used without full green, game ends in a loss and correct answer is shown
+
+## Installation
+1. Download wordle.py, guess_pool.csv. Both files should be grouped into the same folder
+2. Run ```python wordle.py```
+3. Have fun
