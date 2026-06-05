@@ -14,12 +14,20 @@ GRAY = "\033[100m"
 CLEAR_COL = "\033[0m"
 
 
+class TestFindMatch:
+    # ---- GREEN TEST CASES ----
+    def test_find_match(self):
+        assert find_match("flo", "fla") == f" {GREEN}f{CLEAR_COL}" f" {GREEN}l{CLEAR_COL}" f" {GRAY}o{CLEAR_COL}"
 
-# find_match(play_guess, final_answer)
-def test_find_match():
-    assert find_match("flo", "fla") == f" {GREEN}f{CLEAR_COL}" f" {GREEN}l{CLEAR_COL}" f" {GRAY}o{CLEAR_COL}"
+    def test_single_green(self):
+        assert find_match("f", "f") == f" {GREEN}f{CLEAR_COL}"
 
-def test_spaced_green():
-    assert find_match("flown", "flaws") == f" {GREEN}f{CLEAR_COL}" f" {GREEN}l{CLEAR_COL}" f" {GRAY}o{CLEAR_COL}" f" {GREEN}w{CLEAR_COL}" f" {GRAY}n{CLEAR_COL}"
+    def test_spaced_green(self):
+        assert find_match("flown", "flaws") == f" {GREEN}f{CLEAR_COL}" f" {GREEN}l{CLEAR_COL}" f" {GRAY}o{CLEAR_COL}" f" {GREEN}w{CLEAR_COL}" f" {GRAY}n{CLEAR_COL}"
+
+    # ---- YELLOW TEST CASES ----
+    def test_spaced_yellow(self):
+        assert find_match("pdpd", "apep") == f" {YELLOW}p{CLEAR_COL}" f" {GRAY}d{CLEAR_COL}" f" {YELLOW}p{CLEAR_COL}" f" {GRAY}d{CLEAR_COL}"
 
 
+# mock to test wordle_game + get_input
