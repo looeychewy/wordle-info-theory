@@ -69,11 +69,13 @@ def wordle_game():
     chance_counter = 0
     while chance_counter < 6:
         player_guess = get_input(
-            f"Chances used: {chance_counter}. Output:{find_match(player_guess, word_answer)}. Enter your guess: ")
+            f"Chances used: {chance_counter}. Output:{find_match(player_guess, word_answer)} Enter your guess: ")
 
         # Continuously asks player to input valid guess if their input is not in the guess pool
         while player_guess != word_answer and player_guess not in data:
-            if len(player_guess) != 5:
+            if not player_guess.isalpha():
+                player_guess = get_input("Guess should only be letters, try again: ")
+            elif len(player_guess) != 5:
                 player_guess = get_input("Guess should only be 5 characters, try again: ")
             else:
                 player_guess = get_input("Word not in list, try again: ")

@@ -30,12 +30,15 @@ class TestFindMatch:
         assert find_match("pdpd", "apep") == f" {YELLOW}p{CLEAR_COL}" f" {GRAY}d{CLEAR_COL}" f" {YELLOW}p{CLEAR_COL}" f" {GRAY}d{CLEAR_COL}"
 
 
-# MOCKS (to test wordle_game + get_input) Class TestGetInput
-# get_input(_input here_) -> waits for input, rethink this
-
+# MOCKS (to test get_input + wordle_game)
 class TestGetInput:
-    @patch('builtins.input', return_value="FLOWN")
-    def test_get_input(self, mock_get):
+    @patch('builtins.input', return_value="FLOWN") # return_value is what gets pushed as a mock
+    def test_all_caps_input(self, mock_get):
+        result = get_input("")
+        assert result == "flown"
+
+    @patch('builtins.input', return_value="fLoWN")
+    def test_mixed_case_input(self, mock_get):
         result = get_input("")
         assert result == "flown"
 
@@ -43,9 +46,6 @@ class TestGetInput:
     def test_single_input(self, mock_get):
         result = get_input("")
         assert result == "f"
-
-        # use pytest -s for now
-        # how bind "flo" to get_input? -> result = get_input("flo") does not work like that
 
 
 
