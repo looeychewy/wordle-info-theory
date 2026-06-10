@@ -7,3 +7,6 @@ requires-python = ">=3.13"
 dependencies = [
     "pytest>=9.0.3"
 ] # how write
+
+[tool.pytest.ini_options]
+pythonpath = ["."]  # Effectively replaces "python -m pytest"
