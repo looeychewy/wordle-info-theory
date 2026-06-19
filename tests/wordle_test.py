@@ -3,7 +3,7 @@
 # sys.path.insert(0, "../game_files")
 
 import pytest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 from game_files.wordle import find_match, wordle_game, get_input
 
 # ANSI Codes for use
@@ -47,9 +47,10 @@ class TestGetInput:
         result = get_input("")
         assert result == "f"
 
+# class TestWordleGame -> test various scenarios not the entire broad category
+# also the fuckin repo isnt updated shit
 
+# HAVE TO MOCK -> file I/O, input, .random()
+class TestWordleGame:
+    pass
 
-
-# @patch('game_files.wordle.wordle_game')
-# def test_wordle_game():
-#     pass

@@ -7,7 +7,7 @@
       <excludeFolder url="file://$MODULE_DIR$/utility-files/pytest/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/wordle-info-theory/.venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.13 (wordle-info-theory)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.13" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
