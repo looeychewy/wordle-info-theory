@@ -18,10 +18,12 @@ dev = [
 [tool.pytest.ini_options]
 pythonpath = ["."]  # Effectively replaces "python -m pytest"
 testpaths = ["tests"]
+
+# Specifies default cmd-line flags to prevent manual retyping
 addopts = [
     "--cov=game_files.wordle",
     "--cov-report=term-missing",
-    "--cov-report=html" # Generate viewable .html report of covered lines
+    "--cov-report=html"
 ]
 
 [tool.coverage.run]
