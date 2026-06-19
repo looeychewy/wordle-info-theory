@@ -32,17 +32,17 @@ class TestFindMatch:
 # MOCKS (to test get_input + wordle_game)
 class TestGetInput:
     @patch('builtins.input', return_value="FLOWN") # return_value is what gets pushed as a mock
-    def test_all_caps_input(self, mock_get):
+    def test_all_caps_input(self, _):
         result = get_input("")
         assert result == "flown"
 
     @patch('builtins.input', return_value="fLoWN")
-    def test_mixed_case_input(self, mock_get):
+    def test_mixed_case_input(self, _):
         result = get_input("")
         assert result == "flown"
 
     @patch('builtins.input', return_value="F")
-    def test_single_input(self, mock_get):
+    def test_single_input(self, _):
         result = get_input("")
         assert result == "f"
 
