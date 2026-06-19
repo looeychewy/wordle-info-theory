@@ -48,10 +48,8 @@ class TestGetInput:
         assert result == "f"
 
 # class TestWordleGame -> test various scenarios not the entire broad category
-# also the fuckin repo isnt updated shit
 # HAVE TO MOCK -> file I/O, input, .random()
     # scenarios: test csv pulling,
-        # lowk might just be tired but i dont see the need to fully test every bit of wordle_game()
 class TestWordleGame:
     pass
 
