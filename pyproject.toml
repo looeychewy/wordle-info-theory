@@ -5,8 +5,6 @@ description = "Optimizing Wordle gameplay by way of information theory"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-# colorama (windows)
-# mac dependency?
 ]
 
 [dependency-groups]
