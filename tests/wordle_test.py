@@ -47,9 +47,11 @@ class TestGetInput:
         result = get_input("")
         assert result == "f"
 
-# class TestWordleGame -> test various scenarios not the entire broad category
 # HAVE TO MOCK -> file I/O, input, .random()
-    # scenarios: test csv pulling,
+#;
 class TestWordleGame:
+    FAKE_CSV = "crane\nflown\nflaws\ntrain\nboxes"
+
+    ##
     pass
 
