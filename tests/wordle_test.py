@@ -2,8 +2,7 @@
 # import sys
 # sys.path.insert(0, "../game_files")
 
-import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, mock_open
 from game_files.wordle import find_match, wordle_game, get_input
 
 # ANSI Codes for use
@@ -48,10 +47,24 @@ class TestGetInput:
         assert result == "f"
 
 # HAVE TO MOCK -> file I/O, input, .random()
-#;
+# test win conditions (first word win, last chance win, no chances loss)
+#TODO: WORDLE_GAME TEST SUITE
 class TestWordleGame:
+    # Preset testing answer pool
     FAKE_CSV = "crane\nflown\nflaws\ntrain\nboxes"
 
-    ##
-    pass
+    @patch('builtins.print')
+    @patch('builtins.open')
+    @patch('builtins.input')
+    @patch('random.choice')
+    def test_first_try_win(self, mock_choice, mock_input, mock_open_, mock_print):
+        mock_choice.return_value = "flown" # mock random choice
+        mock_input.return_value = "flown" # mock user input
+        mock_open_.return_value = mock_open(read_data=self.FAKE_CSV)() # mock grabbing from the csv
+
+        wordle_game()
+         #'
+
+        pass
+
 
