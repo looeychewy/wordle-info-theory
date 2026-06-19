@@ -5,8 +5,24 @@ description = "Optimizing Wordle gameplay by way of information theory"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "pytest>=9.0.3"
-] # how write
+# colorama? fuc
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "pytest-cov>=6.0.0",
+    ]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]  # Effectively replaces "python -m pytest"
+testpaths = ["tests"]
+addopts = [
+    "--cov=game_files.wordle",
+    "--cov-report=term-missing",
+    "--cov-report=html" # Generate viewable .html report of covered lines
+]
+
+[tool.coverage.run]
+source = ["game_files.wordle"]
+omit = ["tests/*"]
