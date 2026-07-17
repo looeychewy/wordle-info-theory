@@ -20,10 +20,11 @@ testpaths = ["tests"]
 # Specifies default cmd-line flags to prevent manual retyping
 addopts = [
     "--cov=game_files.wordle",
+    "--cov=game_files.wordle_two",
     "--cov-report=term-missing",
     "--cov-report=html"
 ]
 
 [tool.coverage.run]
-source = ["game_files.wordle"]
+source = ["game_files.wordle", "game_files.wordle_two"]
 omit = ["tests/*"]

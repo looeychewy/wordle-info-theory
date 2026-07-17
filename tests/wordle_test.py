@@ -1,9 +1,6 @@
-# Help import functions from /game_files/wordle.py...?
-# import sys
-# sys.path.insert(0, "../game_files")
-
 from unittest.mock import patch, mock_open
-from game_files.wordle import find_match, wordle_game, get_input
+from unittest.mock import MagicMock
+from game_files.wordle import get_input, find_match, wordle_game
 
 # ANSI Codes for use
 GREEN  = "\033[42m" + "\033[30m"
@@ -28,6 +25,8 @@ class TestFindMatch:
     def test_spaced_yellow(self):
         assert find_match("pdpd", "apep") == f" {YELLOW}p{CLEAR_COL}" f" {GRAY}d{CLEAR_COL}" f" {YELLOW}p{CLEAR_COL}" f" {GRAY}d{CLEAR_COL}"
 
+    def test_double_yellow(self):
+        assert find_match("appda", "cxspp") == f" {GRAY}a{CLEAR_COL}" f" {YELLOW}p{CLEAR_COL}" f" {YELLOW}p{CLEAR_COL}" f" {GRAY}d{CLEAR_COL}" f" {GRAY}a{CLEAR_COL}"
 
 # MOCKS (to test get_input + wordle_game)
 class TestGetInput:

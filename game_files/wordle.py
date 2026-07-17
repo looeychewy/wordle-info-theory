@@ -59,7 +59,10 @@ def find_match(play_guess: str, final_answer: str) -> str:
     return "".join(matches)
 
 def wordle_game():
+    # Inst. blank string to hold player's guess
     player_guess = ""
+
+    # Load word pool: Open new file and grab answer word with random()
     with (open("guess_pool.csv", newline='') as word_file):
         reader = csv.reader(word_file)
         data = [row[0] for row in reader]
@@ -89,6 +92,7 @@ def wordle_game():
 
     if chance_counter >= 6:
         print(f"\nSorry, the word was {GRAY}{word_answer.upper()}{CLEAR_COL}")
+
 
 if __name__ == "__main__":
     wordle_game()
