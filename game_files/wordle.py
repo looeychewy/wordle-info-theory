@@ -9,6 +9,7 @@ GRAY = "\033[100m"
 # Clear terminal colors
 CLEAR_COL = "\033[0m"
 
+print("hi")
 
 def get_input(prompt: str) -> str:
     """Helper function to get and keep player input at lowercase when they enter their Wordle guesses.
