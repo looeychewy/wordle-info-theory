@@ -1,63 +1,12 @@
-
-## Wordle redo -->
-# Components:
-# file I/O
-"""
-with (open("guess_pool.csv", newline='')) as word_file):
-    reader = csv.reader(word_file)
-    data = [row[0] for row in reader]
-    word_answer = random.choice(data) -> pulls random from new list
-"""
-# game loop
-'''
-chance_counter = 0
-while chance_counter < 6:
-    ...
-'''
-# input validation
-'''
-while player_guess != word_answer and player_guess not in data:
-if not player_guess.isalpha():
-    player_guess = get_input("Guess should only be letters, try again: ")
-elif len(player_guess) != 5:
-    player_guess = get_input("Guess should only be 5 characters, try again: ")
-else:
-    player_guess = get_input("Word not in list, try again: ")
-'''
-# win/loss logic
-'''
-    if player_guess != word_answer and player_guess in data:
-        chance_counter += 1
-    elif player_guess == word_answer:
-        print(f"Correct! Word is {GREEN}{word_answer.upper()}{CLEAR_COL}!")
-        break
-if chance_counter >= 6:
-    print(f"\nSorry, the word was {GRAY}{word_answer.upper()}{CLEAR_COL}")
-'''
-# printing
-    # get_input calls, print(Correct!), print(Sorry...)
-
-# Deterministic output how?
-    # direct wordle_test function inside wordle.py?
-# Shift away from terminal (means shift away from ANSI too)
-
-# Original wordle.py functionality (top-down):
-    # import random, csv
-    # def get_input (lowercased input functionality)
-    # def find_match (looks for matches between two words via two-pass)
-    # def wordle_game (main wordle game functionality)
-
-# Compartmentalize wordle_game logic into functions, allocating some to WordleGame class others
-    # to just pure functions that don't need to be in class
-
-# Loading word pools -> separate into valid guess and answer pool
-    # load_word() ?
-# Game state? -> covers original game loop ...?
-# Guess validity (def is_valid_guess()) -> covers non-letters, non-members, incorrect length checking
-    # globals -> data, word_answer from CSV
-
-
 import random
+
+# shannon entropy
+# h(X) = "sigma/sum" over i of probability of outcome x_i occurring * the log of probabilities of ALL possible outcomes
+    # H = -sum(pk * log(pk))
+
+# unused ent. imports CURRENTLY
+import numpy as np
+from scipy.stats import entropy
 
 import csv
 from typing import List, Optional, Tuple, Dict
@@ -72,8 +21,6 @@ CORRECT, PRESENT, ABSENT = 2, 1, 0 # dict keys, ez
 
 # self note: nest usage value inside self-defined name
 Matches = Tuple[int, ...] # Type aliasing, increased readability
-
-
 
 # redo wordle_game() for testability and reimplement
 class WordleGame:

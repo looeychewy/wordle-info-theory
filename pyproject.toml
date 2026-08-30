@@ -5,6 +5,8 @@ description = "Optimizing Wordle gameplay by way of information theory"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "scipy>=1.18.0",
+    "scipy-stubs~=1.18.0",
 ]
 
 [dependency-groups]
