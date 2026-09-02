@@ -1,13 +1,16 @@
-import random
-
-# shannon entropy
+# shannon entropy: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.entropy.html
 # h(X) = "sigma/sum" over i of probability of outcome x_i occurring * the log of probabilities of ALL possible outcomes
     # H = -sum(pk * log(pk))
 
-# unused ent. imports CURRENTLY
+# 3^5 = 243 possible pattern outcomes
+    # 3 possible outcomes (green, yellow, gray)
+    # 5 letters per wordle guess
+
+# unused ent. imports CURRENTLY -> shannon entropy
 import numpy as np
 from scipy.stats import entropy
 
+import random
 import csv
 from typing import List, Optional, Tuple, Dict
 
@@ -22,7 +25,6 @@ CORRECT, PRESENT, ABSENT = 2, 1, 0 # dict keys, ez
 # self note: nest usage value inside self-defined name
 Matches = Tuple[int, ...] # Type aliasing, increased readability
 
-# redo wordle_game() for testability and reimplement
 class WordleGame:
 
     def __init__(
@@ -91,9 +93,6 @@ class WordleGame:
 
         return tuple(matches)
 
-
-#0- --
-
     def guess(self, guess: str) -> Matches:
         error = self.is_valid_guess(guess)
         if error:
@@ -110,6 +109,8 @@ def render_pattern(guess: str, pattern: Matches) -> str:
 # --- i/o area ---
 def get_input(prompt: str) -> str:
     return input(prompt).lower()
+
+# def Solver()
 
 def wordle_game():
     guess_pool = WordleGame.load_word_list("guess_pool.csv")

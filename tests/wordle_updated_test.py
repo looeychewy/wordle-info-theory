@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch, mock_open
 
-from game_files.wordle_two import get_input, render_pattern, wordle_game, WordleGame, CORRECT, PRESENT, ABSENT
+from game_files.wordle_updated import get_input, render_pattern, wordle_game, WordleGame, CORRECT, PRESENT, ABSENT
 
 # ANSI Codes for use
 GREEN = "\033[42m" + "\033[30m"
