@@ -123,7 +123,7 @@ class WordleGame:
         self.attempts.append(guess)
         return self.find_match(guess, self.answer)
 
-# Print visualization of validity of each letter Wordle-style
+# Print visual letter color validity Wordle-style
 def render_pattern(guess: str, pattern: Matches) -> str:
     color = {CORRECT: GREEN, PRESENT: YELLOW, ABSENT: GRAY}
     return "".join(f" {color[p]}{ch}{CLEAR_COL}" for ch, p in zip(guess, pattern))
@@ -155,12 +155,20 @@ def wordle_game():
 
         # -> find location of *guess* and pop it from the list
         # still need the number of remaining guesses from temp_pool
-        x = temp_pool.pop(guess_pool.index(guess))
-        n = len(temp_pool)
+        # handle the case of user repeatedly entering same guess, determine if its in the temp list
 
-        print(x, x in temp_pool, x in guess_pool, len(temp_pool), len(guess_pool)) # not in temp, in guess ✅
+            # check by word, not index
+            # if guess is in temp_pool, inst. x and pop. if not, then what? --> "dont pop, pass through"
+        if guess in temp_pool:
+            x = temp_pool.pop(guess_pool.index(guess))
+        else:
+            pass
 
-        print(render_pattern(guess, pattern))
+        t_len = len(temp_pool)
+        g_len = len(guess_pool)
+        print(x, x in temp_pool, x in guess_pool, t_len, g_len) # not in temp, in guess ✅
+
+        print(render_pattern(guess, pattern)) # prints pattern obv
 
     if game.is_won:
         print(f"Correct! Word is {GREEN}{game.answer.upper()}{CLEAR_COL}!")
