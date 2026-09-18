@@ -141,7 +141,7 @@ def wordle_game():
 
     game = WordleGame(guess_pool, temp_pool)
 
-    print(game.answer)
+    print(game.answer) # for debugging
     while not game.is_over:
         guess = get_input(f"Chances used: {game.chances_used}. Enter your guess: ")
 
