@@ -155,18 +155,18 @@ def wordle_game():
 
         # -> find location of *guess* and pop it from the list
         # still need the number of remaining guesses from temp_pool
-        # handle the case of user repeatedly entering same guess, determine if its in the temp list
 
             # check by word, not index
             # if guess is in temp_pool, inst. x and pop. if not, then what? --> "dont pop, pass through"
         if guess in temp_pool:
-            x = temp_pool.pop(guess_pool.index(guess))
-        else:
-            pass
+            # x = temp_pool.pop(guess_pool.index(guess))
+            temp_pool.remove(guess)
+
 
         t_len = len(temp_pool)
         g_len = len(guess_pool)
-        print(x, x in temp_pool, x in guess_pool, t_len, g_len) # not in temp, in guess ✅
+        # print(x, x in temp_pool, x in guess_pool, t_len, g_len) # not in temp, in guess ✅
+        print(t_len, g_len)
 
         print(render_pattern(guess, pattern)) # prints pattern obv
 
