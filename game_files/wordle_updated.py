@@ -25,7 +25,7 @@
 import numpy as np
 from scipy import stats
 from scipy.stats import entropy
-from collections import Counter
+
 
 import random
 import csv
@@ -149,14 +149,11 @@ def wordle_game():
 
         pattern = game.guess(guess) # Returns tuple Matches of the validity keys
 
-        pattern_count = Counter(pattern)
-        print({**pattern_count}) # Tracks num of each key in each tuple
+        # "Pattern Frequency Distribution"
+        pattern_count = dict(Counter(pattern))
+        print(pattern_count) # Tracks num of each key in each tuple, star unpacking
 
-        # Tracks keys over whole game
-            # large_pattern = ()
-            # large_pattern = large_pattern + pattern
-            # lp_count = Counter(large_pattern)
-            # print({**lp_count})
+
 
         # -> find location of *guess* and pop it (remove it) from the list
         # determines number of remaining valid answers in game
