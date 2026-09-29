@@ -30,6 +30,7 @@ from collections import Counter
 import random
 import csv
 from typing import List, Optional, Tuple
+from collections import Counter
 
 # ANSI codes
 GREEN = "\033[42m" + "\033[30m"
