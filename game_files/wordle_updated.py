@@ -17,7 +17,7 @@
 
 # dicts
     # 1. Return tuple accessed from returning find_match
-    # 2. Enter new tuple matches (ie (1, 1, 1, 0, 0) into dict with each valid guess that passes through
+    # 2. Enter new instance of tuple Matches into dict with each valid guess that passes through
     # 3. If tuple already exists within dict object increase the "value part of the key-value pair by 1"
     # 4. Collections.counter to determine the frequency of each pattern distribution?
 
@@ -25,6 +25,7 @@
 import numpy as np
 from scipy import stats
 from scipy.stats import entropy
+from collections import Counter
 
 import random
 import csv
@@ -36,7 +37,7 @@ YELLOW = "\033[43m" + "\033[30m"
 GRAY = "\033[100m"
 CLEAR_COL = "\033[0m"
 
-CORRECT, PRESENT, ABSENT = 2, 1, 0  # dict keys, ez
+CORRECT, PRESENT, ABSENT = 2, 1, 0  # dict keys determining green/yellow/grey respectively
 
 # self note: nest usage value inside self-defined name
 Matches = Tuple[int, ...] # Type aliasing, increased readability
@@ -109,11 +110,6 @@ class WordleGame:
                 matches[idx] = PRESENT
                 remaining[remaining.index(guess_letter)] = None
 
-        # make new tuple guess_pattern and return it OR global tuple object to be able to be accessed anywhere?
-        # guess_pattern = tuple(matches)
-        # return guess_pattern
-
-        print(tuple(matches)) # visualization of dict keys tuple
         return tuple(matches)
 
     def guess(self, guess: str) -> Matches:
@@ -135,13 +131,12 @@ def get_input(prompt: str) -> str:
 
 def wordle_game():
     guess_pool = WordleGame.load_word_list("guess_pool.csv")
-
-    # Temp word pool strictly for data manipulation
+    # Duped pool from guess csv, used for manipulation
     temp_pool = WordleGame.load_word_list("guess_pool.csv")
 
     game = WordleGame(guess_pool, temp_pool)
 
-    print(game.answer) # for debugging
+    print(game.answer) # DELETE WHEN DONE -- for debugging
     while not game.is_over:
         guess = get_input(f"Chances used: {game.chances_used}. Enter your guess: ")
 
@@ -151,29 +146,40 @@ def wordle_game():
             guess = get_input(f"{error}: ")
             error = game.is_valid_guess(guess)
 
-        pattern = game.guess(guess) # Returns tuple Matches of the "correct" keys
+        pattern = game.guess(guess) # Returns tuple Matches of the validity keys
 
-        # -> find location of *guess* and pop it from the list
-        # still need the number of remaining guesses from temp_pool
+        pattern_count = Counter(pattern)
+        print({**pattern_count}) # Tracks num of each key in each tuple
 
-            # check by word, not index
-            # if guess is in temp_pool, inst. x and pop. if not, then what? --> "dont pop, pass through"
-        if guess in temp_pool:
-            # x = temp_pool.pop(guess_pool.index(guess))
+        # Tracks keys over whole game
+            # large_pattern = ()
+            # large_pattern = large_pattern + pattern
+            # lp_count = Counter(large_pattern)
+            # print({**lp_count})
+
+        # -> find location of *guess* and pop it (remove it) from the list
+        # determines number of remaining valid answers in game
+        # all work happens towards end of each guess as program begins to loop back around
+
+        if guess in temp_pool and guess != game.answer:
             temp_pool.remove(guess)
+        num_guesses = len(temp_pool) # Tracks number of valid guesses left during game
 
-
-        t_len = len(temp_pool)
+        # DELETE WHEN DONE -- tracks word pool sizes
         g_len = len(guess_pool)
-        # print(x, x in temp_pool, x in guess_pool, t_len, g_len) # not in temp, in guess ✅
-        print(t_len, g_len)
+        print(num_guesses, g_len)
 
-        print(render_pattern(guess, pattern)) # prints pattern obv
+        print(render_pattern(guess, pattern))
 
     if game.is_won:
         print(f"Correct! Word is {GREEN}{game.answer.upper()}{CLEAR_COL}!")
     else:
         print(f"\nSorry, the word was {GRAY}{game.answer.upper()}{CLEAR_COL}")
 
+# def shannon_entropy():
+#     temp_pool = WordleGame.load_word_list("guess_pool.csv")
+#
+#     main_game = wordle_game.game
+#     print(main_game.answer)
 if __name__ == '__main__':
     wordle_game()
