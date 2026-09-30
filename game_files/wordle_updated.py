@@ -156,7 +156,7 @@ def wordle_game():
         fre_absent = pattern_count[0]/5
 
         word_list = [fre_correct, fre_present, fre_absent]
-        word_entropy = entropy(word_list) #??? yes?
+        word_entropy = entropy(word_list)
 
         print(dict(pattern_count), fre_correct, fre_present, fre_absent, word_entropy) # Tracks num of each key in each tuple
 
