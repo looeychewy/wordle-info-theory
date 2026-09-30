@@ -149,11 +149,16 @@ def wordle_game():
 
         pattern = game.guess(guess) # Returns tuple Matches of the validity keys
 
-        # "Pattern Frequency Distribution"
-        pattern_count = dict(Counter(pattern))
-        print(pattern_count) # Tracks num of each key in each tuple, star unpacking
 
+        pattern_count = Counter(pattern) # Store inst. of key + num of each key type
+        fre_correct = pattern_count[2]/5
+        fre_present = pattern_count[1]/5
+        fre_absent = pattern_count[0]/5
 
+        word_list = [fre_correct, fre_present, fre_absent]
+        word_entropy = entropy(word_list) #??? yes?
+
+        print(dict(pattern_count), fre_correct, fre_present, fre_absent, word_entropy) # Tracks num of each key in each tuple
 
         # -> find location of *guess* and pop it (remove it) from the list
         # determines number of remaining valid answers in game
@@ -161,11 +166,11 @@ def wordle_game():
 
         if guess in temp_pool and guess != game.answer:
             temp_pool.remove(guess)
-        num_guesses = len(temp_pool) # Tracks number of valid guesses left during game
+        guesses_left = len(temp_pool) # Tracks number of valid guesses left during game
 
         # DELETE WHEN DONE -- tracks word pool sizes
         g_len = len(guess_pool)
-        print(num_guesses, g_len)
+        print(guesses_left, g_len)
 
         print(render_pattern(guess, pattern))
 
@@ -174,10 +179,6 @@ def wordle_game():
     else:
         print(f"\nSorry, the word was {GRAY}{game.answer.upper()}{CLEAR_COL}")
 
-# def shannon_entropy():
-#     temp_pool = WordleGame.load_word_list("guess_pool.csv")
-#
-#     main_game = wordle_game.game
-#     print(main_game.answer)
+
 if __name__ == '__main__':
     wordle_game()
