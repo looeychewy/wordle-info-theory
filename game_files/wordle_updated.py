@@ -166,10 +166,18 @@ def wordle_game():
         # "Any word that doesn't return the same pattern of keys as the guess is eliminated from the list"
         # determines number of remaining valid answers in game
         # all work happens towards end of each guess as program begins to loop back around
+        bin_dict = {}
 
-        if guess in temp_pool and guess != game.answer:
-            temp_pool.remove(guess)
-        guesses_left = len(temp_pool) # Tracks number of valid guesses left during game
+        # how to track words from list??
+        for word in temp_pool:
+            if WordleGame.find_match(word, game.answer) != pattern:
+                temp_pool.remove(word)
+        bin_dict.update({WordleGame.find_match(word, game.answer): word})
+
+        print(bin_dict)
+        # if guess in temp_pool and guess != game.answer:
+        #     temp_pool.remove(guess)
+        # guesses_left = len(temp_pool) # Tracks number of valid guesses left during game
 
         pattern_count = Counter(pattern)
         print(dict(pattern_count))  # Tracks num of each key in each tuple
