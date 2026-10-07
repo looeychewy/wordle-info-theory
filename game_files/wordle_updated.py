@@ -129,15 +129,19 @@ def render_pattern(guess: str, pattern: Matches) -> str:
 def get_input(prompt: str) -> str:
     return input(prompt).lower()
 
+def calc_entropy() -> float:
+    word_entropy = 0
+    return word_entropy
 
 def wordle_game():
-    guess_pool = WordleGame.load_word_list("guess_pool.csv")
+    guess_pool = WordleGame.load_word_list("guess_pools.csv")
     # Duped pool from guess csv, used for manipulation
-    temp_pool = WordleGame.load_word_list("guess_pool.csv")
+    temp_pool = WordleGame.load_word_list("guess_pools.csv")
 
     game = WordleGame(guess_pool, temp_pool)
 
     print(game.answer) # DELETE WHEN DONE -- for debugging
+    # MAIN GAME LOOP
     while not game.is_over:
         guess = get_input(f"Chances used: {game.chances_used}. Enter your guess: ")
 
@@ -149,18 +153,9 @@ def wordle_game():
 
         pattern = game.guess(guess) # Returns tuple Matches of the validity keys
 
+        xbox = WordleGame.find_match(guess, game.answer) # temp name
 
-        pattern_count = Counter(pattern) # Store inst. of key + num of each key type
-        fre_correct = pattern_count[2]/5
-        fre_present = pattern_count[1]/5
-        fre_absent = pattern_count[0]/5
-
-        word_list = [fre_correct, fre_present, fre_absent]
-        word_entropy = entropy(word_list)
-
-        print(dict(pattern_count), fre_correct, fre_present, fre_absent, word_entropy) # Tracks num of each key in each tuple
-
-        # -> find location of *guess* and pop it (remove it) from the list
+        # "Any word that doesn't return the same pattern of keys as the guess is eliminated"
         # determines number of remaining valid answers in game
         # all work happens towards end of each guess as program begins to loop back around
 
@@ -168,9 +163,13 @@ def wordle_game():
             temp_pool.remove(guess)
         guesses_left = len(temp_pool) # Tracks number of valid guesses left during game
 
+        # Retrieve count of each key type, store into vars to track frequency dist. per guess
+        pattern_count = Counter(pattern)
+        print(dict(pattern_count), xbox)  # Tracks num of each key in each tuple
+
         # DELETE WHEN DONE -- tracks word pool sizes
-        g_len = len(guess_pool)
-        print(guesses_left, g_len)
+        # g_len = len(guess_pool)
+        # print(guesses_left, g_len)
 
         print(render_pattern(guess, pattern))
 
