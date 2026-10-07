@@ -1,26 +1,3 @@
-# shannon entropy: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.entropy.html
-# h(X) = "sigma/sum" over i of probability of outcome x_i occurring * the log of probabilities of ALL possible outcomes
-    # H = -sum(pk * log(pk)) if only probabilities pk are given
-    # PK IS ARRAY-LIKE
-
-# 3^5 = 243 possible pattern outcomes
-    # 3 possible outcomes (green, yellow, gray)
-    # 5 letters per wordle guess
-
-# 1. Establish candidate pool -> define list of all remaining valid answers not yet eliminated by past guesses ✅
-    # a. From temp pool (start of game, that's the entire list)
-    # Draw up a second list that only exists during game state/runtime(?), duped from guess_pool.csv ✅
-    # to think about later: is a second list actually needed?
-# With each valid answer that passes through, POP it at the index until game ends, which then ✅
-
-# 2. Select candidate guess?
-
-# dicts
-    # 1. Return tuple accessed from returning find_match
-    # 2. Enter new instance of tuple Matches into dict with each valid guess that passes through
-    # 3. If tuple already exists within dict object increase the "value part of the key-value pair by 1"
-    # 4. Collections.counter to determine the frequency of each pattern distribution?
-
 # unused ent. imports CURRENTLY
 import numpy as np
 from scipy import stats
@@ -139,17 +116,23 @@ def render_pattern(guess: str, pattern: Matches) -> str:
 def get_input(prompt: str) -> str:
     return input(prompt).lower()
 
-def calc_entropy(guess, answer) -> float:
+def calc_entropy(guess, word_pool) -> float:
+    # shannon entropy: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.entropy.html
+    # h(X) = "sigma/sum" over i of probability of outcome x_i occurring * the log of probabilities of ALL possible outcomes
+    # H = -sum(pk * log(pk)) if only probabilities pk are given
+    # PK IS ARRAY-LIKE
+
+    # 3^5 = 243 possible pattern outcomes
+    # 3 possible outcomes (green, yellow, gray)
+    # 5 letters per wordle guess
     word_entropy = 0
-    pattern = WordleGame.find_match(guess, answer)
+    pattern = WordleGame.find_match(guess, word_pool)
     return word_entropy
 
 def wordle_game():
-    guess_pool = WordleGame.load_word_list("guess_pools.csv")
-    # Duped pool from guess csv, used for manipulation
-    temp_pool = WordleGame.load_word_list("guess_pools.csv")
-
-    game = WordleGame(guess_pool, temp_pool)
+    # shannon entropy formula?
+    guess_pool = WordleGame.load_word_list("guess_pool.csv")
+    game = WordleGame(guess_pool)
 
     print(game.answer) # DELETE WHEN DONE -- for debugging
     # MAIN GAME LOOP
@@ -163,21 +146,14 @@ def wordle_game():
             error = game.is_valid_guess(guess)
         pattern = game.guess(guess)
 
-        # "Any word that doesn't return the same pattern of keys as the guess is eliminated from the list"
-        # determines number of remaining valid answers in game
-        # all work happens towards end of each guess as program begins to loop back around
-        bin_dict = {}
-
         # how to track words from list??
-        for word in temp_pool:
-            if WordleGame.find_match(word, game.answer) != pattern:
-                temp_pool.remove(word)
-        bin_dict.update({WordleGame.find_match(word, game.answer): word})
+        # For the length of guess_pool, simulate guesses to retrieve the tuple (call find_match.
+        # compare guess and word).
+            # If that specific one matches the guess pattern, add it to list
+            # else, remove?
+        temp_pool = [word for word in guess_pool if WordleGame.find_match(guess, word) == pattern]
+        print(temp_pool)
 
-        print(bin_dict)
-        # if guess in temp_pool and guess != game.answer:
-        #     temp_pool.remove(guess)
-        # guesses_left = len(temp_pool) # Tracks number of valid guesses left during game
 
         pattern_count = Counter(pattern)
         print(dict(pattern_count))  # Tracks num of each key in each tuple
