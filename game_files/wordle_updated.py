@@ -129,8 +129,9 @@ def render_pattern(guess: str, pattern: Matches) -> str:
 def get_input(prompt: str) -> str:
     return input(prompt).lower()
 
-def calc_entropy() -> float:
+def calc_entropy(guess, answer) -> float:
     word_entropy = 0
+    pattern = WordleGame.find_match(guess, answer)
     return word_entropy
 
 def wordle_game():
@@ -150,10 +151,7 @@ def wordle_game():
         while error:
             guess = get_input(f"{error}: ")
             error = game.is_valid_guess(guess)
-
-        pattern = game.guess(guess) # Returns tuple Matches of the validity keys
-
-        xbox = WordleGame.find_match(guess, game.answer) # temp name
+        pattern = game.guess(guess)
 
         # "Any word that doesn't return the same pattern of keys as the guess is eliminated"
         # determines number of remaining valid answers in game
@@ -165,7 +163,7 @@ def wordle_game():
 
         # Retrieve count of each key type, store into vars to track frequency dist. per guess
         pattern_count = Counter(pattern)
-        print(dict(pattern_count), xbox)  # Tracks num of each key in each tuple
+        print(dict(pattern_count))  # Tracks num of each key in each tuple
 
         # DELETE WHEN DONE -- tracks word pool sizes
         # g_len = len(guess_pool)
