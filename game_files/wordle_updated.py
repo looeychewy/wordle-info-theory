@@ -96,6 +96,16 @@ class WordleGame:
 # --- find match ---
     @staticmethod
     def find_match(guess: str, answer: str) -> Matches:
+        """Takes two input strings, checks which letters in guess match or exist the letters in answer.
+        Returning a tuple consisting of the following defined validity keys (2 = CORRECT, 1 = PRESENT,
+        0 = ABSENT) ordered by letter placement in guess.
+
+        Args:
+            guess (string): First input string that's being evaluated
+            answer (string): Second input string that guess is being checked against
+
+        Returns:
+             tuple: Tuple that holds validity keys in order of appearance in guess"""
         matches = [ABSENT] * len(answer)
         remaining = list(answer)
 
@@ -153,7 +163,7 @@ def wordle_game():
             error = game.is_valid_guess(guess)
         pattern = game.guess(guess)
 
-        # "Any word that doesn't return the same pattern of keys as the guess is eliminated"
+        # "Any word that doesn't return the same pattern of keys as the guess is eliminated from the list"
         # determines number of remaining valid answers in game
         # all work happens towards end of each guess as program begins to loop back around
 
@@ -161,13 +171,8 @@ def wordle_game():
             temp_pool.remove(guess)
         guesses_left = len(temp_pool) # Tracks number of valid guesses left during game
 
-        # Retrieve count of each key type, store into vars to track frequency dist. per guess
         pattern_count = Counter(pattern)
         print(dict(pattern_count))  # Tracks num of each key in each tuple
-
-        # DELETE WHEN DONE -- tracks word pool sizes
-        # g_len = len(guess_pool)
-        # print(guesses_left, g_len)
 
         print(render_pattern(guess, pattern))
 
