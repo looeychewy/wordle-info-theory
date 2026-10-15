@@ -3,7 +3,7 @@ import numpy as np
 from scipy import stats
 from scipy.stats import entropy
 
-
+import math
 import random
 import csv
 from typing import List, Optional, Tuple
@@ -122,15 +122,11 @@ def calc_entropy(guess, word_pool) -> float:
     # H = -sum(pk * log(pk)) if only probabilities pk are given
     # PK IS ARRAY-LIKE
 
-    # 3^5 = 243 possible pattern outcomes
-    # 3 possible outcomes (green, yellow, gray)
-    # 5 letters per wordle guess
     word_entropy = 0
     pattern = WordleGame.find_match(guess, word_pool)
     return word_entropy
 
 def wordle_game():
-    # shannon entropy formula?
     guess_pool = WordleGame.load_word_list("guess_pool.csv")
     game = WordleGame(guess_pool)
 
@@ -146,20 +142,19 @@ def wordle_game():
             error = game.is_valid_guess(guess)
         pattern = game.guess(guess)
 
-        # how to track words from list??
-        # For the length of guess_pool, simulate guesses to retrieve the tuple (call find_match.
-        # compare guess and word).
-            # If that specific one matches the guess pattern, add it to list
-            # else, remove?
+        # Creates new temporary pool for storing all possible words based on pattern equality
         temp_pool = [word for word in guess_pool if WordleGame.find_match(guess, word) == pattern]
-        print(temp_pool)
+        print(temp_pool, len(temp_pool))
 
+        print(math.log(len(temp_pool), 2))
 
-        pattern_count = Counter(pattern)
-        print(dict(pattern_count))  # Tracks num of each key in each tuple
+        # pattern_count = Counter(pattern)
+        # print(dict(pattern_count))  # Tracks num of each key in each tuple
 
         print(render_pattern(guess, pattern))
 
+
+        # determine the entropic value of each guess
     if game.is_won:
         print(f"Correct! Word is {GREEN}{game.answer.upper()}{CLEAR_COL}!")
     else:
