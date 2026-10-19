@@ -151,8 +151,6 @@ def wordle_game():
             asd = WordleGame.find_match(guess, word)
             pattern_count[asd] += 1
         print(pattern_count)
-        # print(dict(pattern_count))  # Tracks num of each key in each tuple
-
 
         print(render_pattern(guess, pattern))
 
