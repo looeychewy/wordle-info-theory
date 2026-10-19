@@ -161,14 +161,12 @@ def wordle_game():
         #     prob.append(count / len(temp_pool))
         #     print(prob)
         prob = [count/len(temp_pool) for count in pattern_count.values()]
-        e = entropy(np.array(prob), base = 2)
         print(pattern_count.values(), prob)
 
-        print(len(temp_pool), len(pattern_count), e)
+        print(len(temp_pool), len(pattern_count))
         print(render_pattern(guess, pattern))
 
 
-        # determine the entropic value of each guess
     if game.is_won:
         print(f"Correct! Word is {GREEN}{game.answer.upper()}{CLEAR_COL}!")
     else:
