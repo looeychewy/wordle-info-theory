@@ -122,9 +122,14 @@ def calc_entropy(guess, word_pool) -> float:
     # H = -sum(pk * log(pk)) if only probabilities pk are given
     # PK IS ARRAY-LIKE
 
-    word_entropy = 0
-    pattern = WordleGame.find_match(guess, word_pool)
-    return word_entropy
+    pattern_count = Counter()
+    tot_words = len(word_pool)
+
+    for word in word_pool:
+        pattern = WordleGame.find_match(guess, word)
+        pattern_count[pattern] += 1
+
+    pass
 
 def wordle_game():
     guess_pool = WordleGame.load_word_list("guess_pool.csv")
@@ -144,14 +149,18 @@ def wordle_game():
 
         # Creates new temporary pool for storing all possible words based on pattern equality
         temp_pool = [word for word in guess_pool if WordleGame.find_match(guess, word) == pattern]
-        print(temp_pool, len(temp_pool))
+        print(temp_pool)
 
         pattern_count = Counter()
         for word in temp_pool:
             asd = WordleGame.find_match(guess, word)
             pattern_count[asd] += 1
-        print(pattern_count)
 
+        prob = [count/len(temp_pool) for count in pattern_count.values()]  #APPEND TO ACTUALLY HAVE SOMETHING  WORKABLE (log_2(1) = 0, entropy(1) = 0)
+        e = entropy(np.array(prob), base = 2)
+        print(pattern_count.values(), prob)
+
+        print(len(temp_pool), len(pattern_count), e)
         print(render_pattern(guess, pattern))
 
 
