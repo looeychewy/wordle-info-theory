@@ -129,10 +129,15 @@ def calc_entropy(guess, word_pool) -> float:
         pattern = WordleGame.find_match(guess, word)
         pattern_count[pattern] += 1
 
-    pass
+    prob = [count/tot_words for count in pattern_count.values()]
+
+    return entropy(prob, base = 2)
+
 
 def wordle_game():
     guess_pool = WordleGame.load_word_list("guess_pool.csv")
+    temp_pool = guess_pool
+
     game = WordleGame(guess_pool)
 
     print(game.answer) # DELETE WHEN DONE -- for debugging
@@ -147,25 +152,18 @@ def wordle_game():
             error = game.is_valid_guess(guess)
         pattern = game.guess(guess)
 
-        # Creates new temporary pool for storing all possible words based on pattern equality
-        temp_pool = [word for word in guess_pool if WordleGame.find_match(guess, word) == pattern]
-        print(temp_pool)
-
+        num_words = len(temp_pool)
         pattern_count = Counter()
         for word in temp_pool:
-            asd = WordleGame.find_match(guess, word)
-            pattern_count[asd] += 1
+            pattern_dist = WordleGame.find_match(guess, word)
+            pattern_count[pattern_dist] += 1
 
-        # prob = []
-        # for count in pattern_count.values():
-        #     prob.append(count / len(temp_pool))
-        #     print(prob)
-        prob = [count/len(temp_pool) for count in pattern_count.values()]
-        print(pattern_count.values(), prob)
+        prob = [count/num_words for count in pattern_count.values()]
+        e = entropy(prob, base = 2)
+        print(pattern_count, pattern_count.values(), prob, e)
 
         print(len(temp_pool), len(pattern_count))
         print(render_pattern(guess, pattern))
-
 
     if game.is_won:
         print(f"Correct! Word is {GREEN}{game.answer.upper()}{CLEAR_COL}!")
