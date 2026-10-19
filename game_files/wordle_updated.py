@@ -156,7 +156,11 @@ def wordle_game():
             asd = WordleGame.find_match(guess, word)
             pattern_count[asd] += 1
 
-        prob = [count/len(temp_pool) for count in pattern_count.values()]  #APPEND TO ACTUALLY HAVE SOMETHING  WORKABLE (log_2(1) = 0, entropy(1) = 0)
+        # prob = []
+        # for count in pattern_count.values():
+        #     prob.append(count / len(temp_pool))
+        #     print(prob)
+        prob = [count/len(temp_pool) for count in pattern_count.values()]
         e = entropy(np.array(prob), base = 2)
         print(pattern_count.values(), prob)
 
