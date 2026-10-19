@@ -146,10 +146,13 @@ def wordle_game():
         temp_pool = [word for word in guess_pool if WordleGame.find_match(guess, word) == pattern]
         print(temp_pool, len(temp_pool))
 
-        print(math.log(len(temp_pool), 2))
-
-        # pattern_count = Counter(pattern)
+        pattern_count = Counter()
+        for word in temp_pool:
+            asd = WordleGame.find_match(guess, word)
+            pattern_count[asd] += 1
+        print(pattern_count)
         # print(dict(pattern_count))  # Tracks num of each key in each tuple
+
 
         print(render_pattern(guess, pattern))
 
