@@ -1,6 +1,3 @@
-# unused ent. imports CURRENTLY
-import math
-
 import random
 import csv
 from typing import List, Optional, Tuple
@@ -41,8 +38,6 @@ class WordleGame:
             reader = csv.reader(word_file)
             data = list(reader)
             return [row[0] for row in data]
-
-            # return [row[0] for row in reader]
 
     # Class properties
     @property
@@ -159,7 +154,7 @@ def wordle_game():
         temp_pool = [word for word in temp_pool if WordleGame.find_match(guess, word) == pattern]
         print(temp_pool)
         print("remaining words: ", len(temp_pool))
-        print("entropy: ", e)  #f"{e:.4f}"
+        print("entropy: ", e)
 
         print(render_pattern(guess, pattern))
 
