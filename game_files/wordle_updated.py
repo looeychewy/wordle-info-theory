@@ -64,7 +64,6 @@ class WordleGame:
 
         return None
 
-    # --- find match ---
     @staticmethod
     def find_match(guess: str, answer: str) -> Matches:
         """Takes two input strings, checks which letters in guess match or exist the letters in answer.
@@ -108,8 +107,12 @@ def render_pattern(guess: str, pattern: Matches) -> str:
     return "".join(f" {color[p]}{ch}{CLEAR_COL}" for ch, p in zip(guess, pattern))
 
 
-# Normalizing input to lowercase letters
 def get_input(prompt: str) -> str:
+    """ Normalizes player's guess input string to lowercase, prevents mixed-case
+        Args:
+            prompt (string): Player guess input string
+        Returns:
+            string: lowercased player's guess input string"""
     return input(prompt).lower()
 
 
@@ -129,7 +132,7 @@ def calc_entropy(guess: str, word_pool: List[str]) -> float:
         pattern_count[pattern] += 1
 
     prob = [count / tot_words for count in pattern_count.values()]
-    return entropy(prob, base=2)
+    return entropy(prob, base = 2)
 
 
 def wordle_game():
@@ -152,9 +155,10 @@ def wordle_game():
 
         e = calc_entropy(guess, temp_pool)
         temp_pool = [word for word in temp_pool if WordleGame.find_match(guess, word) == pattern]
-        print(temp_pool)
-        print("remaining words: ", len(temp_pool))
-        print("entropy: ", e)
+        # for word in temp_pool
+            # dict (word: entropy value) -> entropy of each word in the temp_pool
+        print("Remaining words: ", temp_pool)
+        print(f"Entropy: {e:.4f} bits")
 
         print(render_pattern(guess, pattern))
 
