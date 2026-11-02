@@ -155,8 +155,6 @@ def wordle_game():
 
         e = calc_entropy(guess, temp_pool)
         temp_pool = [word for word in temp_pool if WordleGame.find_match(guess, word) == pattern]
-        # for word in temp_pool
-            # dict (word: entropy value) -> entropy of each word in the temp_pool
         print("Remaining words: ", temp_pool)
         print(f"Entropy: {e:.4f} bits")
 
